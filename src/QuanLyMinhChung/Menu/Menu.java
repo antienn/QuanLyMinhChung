@@ -1,4 +1,2 @@
-package QuanLyMinhChung.Menu;
-
-public class Menu {
+package QuanLyMinhChung.Menu;public class Menu {
 }
