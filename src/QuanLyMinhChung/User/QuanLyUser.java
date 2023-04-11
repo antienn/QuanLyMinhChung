@@ -2,6 +2,8 @@ package QuanLyMinhChung.User;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class QuanLyUser {
     private final ArrayList<User> danhSachUser = new ArrayList<>();
@@ -28,6 +30,24 @@ public class QuanLyUser {
             }
         }
         return null;
+    }
+    public List<TruongPhong> dsTruongPhong() {
+        List<TruongPhong> ds = new ArrayList<>();
+        for(User u : danhSachUser) {
+            if(u instanceof TruongPhong){
+                ds.add((TruongPhong) u);
+            }
+        }
+        return ds;
+    }
+    public List<GiangVien> dsGiangVien() {
+        List<GiangVien> ds = new ArrayList<>();
+        for(User u : danhSachUser) {
+            if(u instanceof GiangVien){
+                ds.add((GiangVien) u);
+            }
+        }
+        return ds;
     }
 
 }

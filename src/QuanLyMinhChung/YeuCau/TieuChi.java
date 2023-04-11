@@ -6,13 +6,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class TieuChi extends YeuCau {
-    private String maTieuChuan;
-    private ArrayList<MinhChung> dsMinhChung;
+    private TieuChuan thuocTieuChuan;
+    private ArrayList<MinhChung> dsMinhChung = new ArrayList<>();;
 
-    public TieuChi(String maYeuCau, String tenYeuCau, String noiDung, String maTieuChuan) {
+    public TieuChi(String maYeuCau, String tenYeuCau, String noiDung, TieuChuan tieuChuan) {
         super(maYeuCau, tenYeuCau, noiDung);
-        this.maTieuChuan = maTieuChuan;
-        this.dsMinhChung = new ArrayList<>();
+        this.thuocTieuChuan = tieuChuan;
     }
 
     // ham them Minh Chung
@@ -25,13 +24,12 @@ public class TieuChi extends YeuCau {
         this.dsMinhChung.remove(minhChung);
     }
 
-
-    public String getMaTieuChuan() {
-        return maTieuChuan;
+    public TieuChuan getThuocTieuChuan() {
+        return thuocTieuChuan;
     }
 
-    public void setMaTieuChuan(String maTieuChuan) {
-        this.maTieuChuan = maTieuChuan;
+    public void setThuocTieuChuan(TieuChuan thuocTieuChuan) {
+        this.thuocTieuChuan = thuocTieuChuan;
     }
 
     public ArrayList<MinhChung> getDsMinhChung() {

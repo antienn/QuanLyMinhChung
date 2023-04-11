@@ -1,28 +1,25 @@
 package QuanLyMinhChung.Menu;
 
-import QuanLyMinhChung.CauHinh.BoPhan;
 import QuanLyMinhChung.CauHinh.CauHinh;
-import QuanLyMinhChung.CauHinh.ThaoTac;
 import QuanLyMinhChung.User.GiangVien;
 import QuanLyMinhChung.User.QuanLyUser;
 import QuanLyMinhChung.User.TruongPhong;
 import QuanLyMinhChung.User.User;
+import QuanLyMinhChung.YeuCau.QuanLyYeuCau;
 import QuanLyMinhChung.admin.Admin;
 
 
 public class Menu {
-    public static void main(String[] args)  {
+    public static void main(String[] args) throws ClassNotFoundException {
         //biến toàn cục
         String role = null;
+        int choose;
         //Tạo đối tượng
         Admin admin = new Admin();
         User u1 = new GiangVien("AnTien","123");
         User u2 = new TruongPhong("MinhTam","456");
 
-        u1.themQuyenHan(BoPhan.BOKIEMDINH,ThaoTac.XOA);
-        u1.themQuyenHan(BoPhan.MINHCHUNG,ThaoTac.THEM);
-        u2.themQuyenHan(BoPhan.MINHCHUNG,ThaoTac.CHINHSUA);
-
+        QuanLyYeuCau dsYeuCau = new QuanLyYeuCau();
         QuanLyUser dsUser = new QuanLyUser();
         dsUser.addUser(u1,u2);
         //Chương trình
@@ -42,12 +39,13 @@ public class Menu {
             }
         }while(true);
         if(role.equals("Admin")){
-            int choose;
             do{
+                System.out.println("=========MENU========");
                 System.out.println("1/Hiển thị danh sách user");
                 System.out.println("2/Tạo tài khoản");
-                System.out.println("3/Cấp quyền cho đối tượng");
-                System.out.println("4/thoát");
+                System.out.println("3/Cấp quyền cho giảng viên");
+                System.out.println("4/Cấp quyền cho trưởng phòng");
+                System.out.println("5/thoát");
                 choose = Integer.parseInt(CauHinh.sc.nextLine());
                 switch (choose){
                     case 1: dsUser.display();break;
@@ -74,32 +72,49 @@ public class Menu {
                         break;
                     }
                     case 3:{
-                        User tmpUser;
-                        BoPhan nd;
-                        ThaoTac tt;
-                        dsUser.display();
-                        System.out.println("Mời bạn nhập tên người muốn cấp quyền");
-                        String name = CauHinh.sc.nextLine();
-                        tmpUser = dsUser.findUserByName(name);
-                        if(tmpUser != null){
-                            tmpUser.hienThiDanhSachQuyenHan();
-                            System.out.printf("1/Thêm \n2/xóa \n3/Chỉnh sửa \nBạn muốn cấp thao tác:");
-                            tt = ThaoTac.valueOf(CauHinh.sc.nextLine().toUpperCase());
-                            System.out.printf("1/Bộ Kiểm Định \n2/Tiêu Chuẩn \n3/Tiêu Chí \n4/Minh Chứng \nBạn muốn cấp thao tác nội dung gì:");
-                            nd = BoPhan.valueOf(CauHinh.sc.nextLine().toUpperCase());
-                            tmpUser.themQuyenHan(nd,tt);
+                        dsUser.dsGiangVien().forEach(GiangVien::display);
+                        String tmpname = CauHinh.sc.nextLine();
+                        GiangVien tmpGV = (GiangVien) dsUser.findUserByName(tmpname);
+                        if(tmpGV==null){
+                            System.out.println("Không tìm thấy tên");
+                            break;
+                        }
+                        System.out.println("1/Cấp quyền biên soạn nội dung tiêu chí");
+                        System.out.println("2/Cấp quyền chỉnh sửa tiêu chí");
+                        int chooseRoleGV  = Integer.parseInt(CauHinh.sc.nextLine());
+                        switch (chooseRoleGV){
+                            case 1:
+                                tmpGV.getQhgv().setDuocBienSoanTieuChi(true);
+                                break;
+                            case 2:
+                                break;
+                            default: System.out.println("Lỗi truy cập");
+                        }
+                    }
+                    case 4:
+                        dsUser.dsTruongPhong().forEach(TruongPhong::display);
+                        String tmpname = CauHinh.sc.nextLine();
+                        int chooseRole = Integer.parseInt( CauHinh.sc.nextLine());
+                        if(chooseRole > 4 ||chooseRole < 1){
+                            System.out.println("Quyền không tồn tại");
+                            break;
+                        }
+                        TruongPhong tmpTP = (TruongPhong)dsUser.findUserByName(tmpname);
+                        if(tmpTP!=null){
+                            tmpTP.setQhtp(chooseRole);
+                            System.out.println("Cấp quyền thành công");
                         }else{
                             System.out.println("Không tìm thấy tên");
                         }
-
-                    }
-                    case 4:
+                        break;
+                    case 5:
                         System.out.println("Đã đăng suất thành công");
                         break;
                     default: System.out.println("Lỗi truy cập");
                 }
-            }while(true);
-        }else{
+            }while(choose !=5);
+        }
+        if(role.equals("User")){
 
         }
     }
