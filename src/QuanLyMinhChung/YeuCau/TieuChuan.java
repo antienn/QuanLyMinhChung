@@ -6,10 +6,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class TieuChuan extends YeuCau {
+    private static int contTieuChuan;
     private ArrayList<TieuChi> dsTieuChi;
-
-    public TieuChuan(String maYeuCau, String tenYeuCau, String noiDung) {
-        super(maYeuCau, tenYeuCau, noiDung);
+    {
+        setMaYeuCau(String.format("TC%05d", ++contTieuChuan));
+    }
+    public TieuChuan( String tenYeuCau, String noiDung) {
+        super(null, tenYeuCau, noiDung);
         this.dsTieuChi = new ArrayList<>();
     }
 

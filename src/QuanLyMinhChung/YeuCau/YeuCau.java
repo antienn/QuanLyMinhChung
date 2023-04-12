@@ -1,10 +1,14 @@
 package QuanLyMinhChung.YeuCau;
 
 public class YeuCau {
-
+    private static int contYeuCau;
     protected String maYeuCau;
     protected String tenYeuCau;
     protected String noiDung;
+
+    {
+        maYeuCau = String.format("YC%05d", ++contYeuCau);
+    }
 
     public YeuCau(String maYeuCau, String tenYeuCau, String noiDung) {
         this.maYeuCau = maYeuCau;

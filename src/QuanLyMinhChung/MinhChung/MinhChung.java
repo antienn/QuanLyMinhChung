@@ -7,30 +7,67 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
 public class MinhChung {
-    private static  int countMinhChung;
+    private static int countMinhChung;
     private String maMinhChung;
-    private  String tenMinhChung;
+    private String tenMinhChung;
     private String noiBanHanh;
     private Date ngayBanHanh;
     private List<CungCap> cungCapMinhChung;
 
-    public MinhChung(String maMinhChung, String tenMinhChung, String noiBanHanh, String ngayBanHanh) {
-        this.maMinhChung = maMinhChung;
+    {
+        this.maMinhChung = String.format("MC%05d", ++countMinhChung);
+    }
+    public MinhChung(){}
+    public MinhChung(String tenMinhChung, String noiBanHanh, Date ngayBanHanh) {
+        this.tenMinhChung = tenMinhChung;
+        this.noiBanHanh = noiBanHanh;
+        this.ngayBanHanh = ngayBanHanh;
+    }
+
+
+    {
+        maMinhChung = String.format("MC%05d", ++countMinhChung);
+    }
+
+    public MinhChung(String tenMinhChung, String noiBanHanh, String ngayBanHanh) {
         this.tenMinhChung = tenMinhChung;
         this.noiBanHanh = noiBanHanh;
         try {
             this.ngayBanHanh = CauHinh.f.parse(ngayBanHanh);
-        }catch(ParseException e){
+        } catch (ParseException e) {
             e.printStackTrace();
         }
-        this.cungCapMinhChung =new ArrayList<>();
+        this.cungCapMinhChung = new ArrayList<>();
     }
 
     @Override
     public String toString() {
         return String.format("-Ma Minh Chung : %s\n-Ten Minh Chung : %s\n-Noi Ban Hanh : %s\n-Ngay Ban Hanh :%s\n"
-                ,this.maMinhChung,this.tenMinhChung,this.noiBanHanh, CauHinh.f.format(this.ngayBanHanh));
+                , this.maMinhChung, this.tenMinhChung, this.noiBanHanh, CauHinh.f.format(this.ngayBanHanh));
+    }
+
+    public void display() {
+        System.out.printf("-Ma Minh Chung : %s\n", this.maMinhChung);
+        System.out.printf("-Ten Minh Chung : %s\n", this.tenMinhChung);
+        System.out.printf("-Noi Ban Hanh : %s\n", this.noiBanHanh);
+        System.out.printf("-Ngay Ban Hanh : %s\n", CauHinh.f.format(this.ngayBanHanh));
+    }
+
+    public void nhapThongTinChung() {
+        System.out.print("Nhập tên Minh Chứng mới: ");
+        String tenMinhChung = CauHinh.sc.nextLine();
+        System.out.print("Nhập nơi ban hành: ");
+        String noiBanHanh = CauHinh.sc.nextLine();
+        System.out.print("Nhập ngày ban hành (theo định dạng dd/MM/yyyy): ");
+        String ngayBanHanhStr = CauHinh.sc.nextLine();
+        try {
+            Date ngayBanHanh = CauHinh.f.parse(ngayBanHanhStr);
+            MinhChung newMinhChung = new MinhChung(tenMinhChung, noiBanHanh, ngayBanHanh);
+        } catch (ParseException e) {
+            System.out.println("Định dạng ngày không hợp lệ!");
+        }
     }
 
     public String getMaMinhChung() {
@@ -64,6 +101,7 @@ public class MinhChung {
     public void setNgayBanHanh(Date ngayBanHanh) {
         this.ngayBanHanh = ngayBanHanh;
     }
+
     public List<CungCap> getCungCapMinhChung() {
         return cungCapMinhChung;
     }
@@ -71,7 +109,6 @@ public class MinhChung {
     public void setCungCapMinhChung(List<CungCap> cungCapMinhChung) {
         this.cungCapMinhChung = cungCapMinhChung;
     }
-
 
 
 }

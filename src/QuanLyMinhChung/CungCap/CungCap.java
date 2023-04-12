@@ -6,22 +6,21 @@ import QuanLyMinhChung.PhongBan.PhongBan;
 
 import java.text.ParseException;
 import java.util.Date;
+import java.util.List;
 
 public class CungCap {
-
-
     private PhongBan phongBan;
     public MinhChung minhChung;
     private Date ngayCungCap;
     private Date ngayTaoMinhChungSystem;
+
     public CungCap(PhongBan phongBan, MinhChung minhChung, String ngayCungCap, String ngayTaoMinhChungSystem) {
         this.phongBan = phongBan;
         this.minhChung = minhChung;
-        try{
+        try {
             this.ngayCungCap = CauHinh.f.parse(ngayCungCap);
             this.ngayTaoMinhChungSystem = CauHinh.f.parse(ngayTaoMinhChungSystem);
-        }catch (ParseException ex)
-        {
+        } catch (ParseException ex) {
             ex.printStackTrace();
         }
     }
@@ -32,7 +31,6 @@ public class CungCap {
         System.out.println("Ngày cung cấp: " + CauHinh.f.format(this.ngayCungCap));
         System.out.println("Ngày tạo minh chứng trong hệ thống: " + CauHinh.f.format(this.ngayTaoMinhChungSystem));
     }
-
 
 
     public PhongBan getPhongBan() {
@@ -66,7 +64,6 @@ public class CungCap {
     public void setNgayTaoMinhChungSystem(Date ngayTaoMinhChungSystem) {
         this.ngayTaoMinhChungSystem = ngayTaoMinhChungSystem;
     }
-
 
 
 }

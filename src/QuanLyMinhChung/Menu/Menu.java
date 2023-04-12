@@ -39,6 +39,7 @@ public class Menu {
             }
         }while(true);
         if(role.equals("Admin")){
+
             do{
                 System.out.println("=========MENU========");
                 System.out.println("1/Hiển thị danh sách user");
