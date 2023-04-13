@@ -22,6 +22,7 @@ public abstract class User {
         System.out.printf("%s | %s |%s\n",this.id,this.name,this.getClass().getSimpleName());
     }
 
+
     public static User createUser(String name,String pass,String role){
         if(role.equals("GiangVien")){
             return new GiangVien(name,pass);

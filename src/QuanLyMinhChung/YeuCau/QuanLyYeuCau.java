@@ -1,41 +1,37 @@
 package QuanLyMinhChung.YeuCau;
 
+import QuanLyMinhChung.MinhChung.MinhChung;
+
 import javax.swing.plaf.PanelUI;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class QuanLyYeuCau {
-    private ArrayList<YeuCau> dsYeuCau = new ArrayList<>();
-    private ArrayList<TieuChuan> dsTieuChuan = new ArrayList<>();
+    private ArrayList<YeuCau> ds = new ArrayList<>();
 
-    public ArrayList<YeuCau> getDsYeuCau() {
-        return dsYeuCau;
+    public void addYeuCau(YeuCau ...dsYeuCau){
+        this.ds.addAll(Arrays.asList(dsYeuCau));
     }
-
-    public void addListTieuChuan(TieuChuan... tcs) {
-        this.dsTieuChuan.addAll(Arrays.asList(tcs));
+    public void displayTieuChi(){
+        for(YeuCau yc : ds){
+            if(yc.getClass().getSimpleName().equals("TieuChi")){
+                yc.display();
+            }
+        }
     }
-
-
-    public void removeTieuChuan(String maTieuChuan) {
-        this.dsTieuChuan.removeIf(x -> x.getMaYeuCau() == maTieuChuan);
-    }
-
-    public void removeTieuChuan(TieuChuan tc) {
-        this.dsTieuChuan.remove(tc);
-    }
-
     public void displayTieuChuan(){
-        this.dsTieuChuan.forEach(h-> h.display());
+        for(YeuCau yc : ds){
+            if(yc.getClass().getSimpleName().equals("TieuChuan")){
+                yc.display();
+            }
+        }
     }
-
-    public void addYeuCau(YeuCau... yc) {
-        this.dsYeuCau.addAll(Arrays.asList(yc));
+    public YeuCau findTieuChuanByName(String name){
+        for(YeuCau yc : ds){
+            if(yc.getClass().getSimpleName().equals("TieuChuan") &&yc.getTenYeuCau().equals(name)){
+                return yc;
+            }
+        }
+        return null;
     }
-
-    public void setDsYeuCau(ArrayList<YeuCau> dsYeuCau) {
-        this.dsYeuCau = dsYeuCau;
-    }
-
-
 }

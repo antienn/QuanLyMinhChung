@@ -1,11 +1,15 @@
 package QuanLyMinhChung.Menu;
 
+import QuanLyMinhChung.BoKiemDinh.BoKiemDinh;
+import QuanLyMinhChung.BoKiemDinh.QuanLyBoKiemDinh;
 import QuanLyMinhChung.CauHinh.CauHinh;
 import QuanLyMinhChung.User.GiangVien;
 import QuanLyMinhChung.User.QuanLyUser;
 import QuanLyMinhChung.User.TruongPhong;
 import QuanLyMinhChung.User.User;
 import QuanLyMinhChung.YeuCau.QuanLyYeuCau;
+import QuanLyMinhChung.YeuCau.TieuChuan;
+import QuanLyMinhChung.YeuCau.YeuCau;
 import QuanLyMinhChung.admin.Admin;
 
 
@@ -13,13 +17,22 @@ public class Menu {
     public static void main(String[] args) throws ClassNotFoundException {
         //biến toàn cục
         String role = null;
+        User tmp;
         int choose;
+
+        //Tạo nghiệp vụ
+        BoKiemDinh a = new BoKiemDinh("Ielts");
+        QuanLyBoKiemDinh dsBoKiemDinh = new QuanLyBoKiemDinh();
+        dsBoKiemDinh.addBoKiemDinh(a);
+
+        YeuCau b = new TieuChuan("4 kỹ năng","speaking,writing,reading,listening");
+        QuanLyYeuCau dsYeuCau = new QuanLyYeuCau();
+        dsYeuCau.addYeuCau(b);
         //Tạo đối tượng
         Admin admin = new Admin();
         User u1 = new GiangVien("AnTien","123");
-        User u2 = new TruongPhong("MinhTam","456");
+        User u2 = new TruongPhong("MinhTam","456",true);
 
-        QuanLyYeuCau dsYeuCau = new QuanLyYeuCau();
         QuanLyUser dsUser = new QuanLyUser();
         dsUser.addUser(u1,u2);
         //Chương trình
@@ -33,13 +46,13 @@ public class Menu {
                 role = dsUser.checkRole(tmpUser,tmpPass);
             }
             if(role!=null){
+                tmp = dsUser.findUserByName(tmpUser);
                 break;
             }else{
                 System.out.println("Tên đăng nhập hoặc mật khẩu không đúng");
             }
         }while(true);
         if(role.equals("Admin")){
-
             do{
                 System.out.println("=========MENU========");
                 System.out.println("1/Hiển thị danh sách user");
@@ -102,7 +115,7 @@ public class Menu {
                         }
                         TruongPhong tmpTP = (TruongPhong)dsUser.findUserByName(tmpname);
                         if(tmpTP!=null){
-                            tmpTP.setQhtp(chooseRole);
+                            tmpTP.capQuyen();
                             System.out.println("Cấp quyền thành công");
                         }else{
                             System.out.println("Không tìm thấy tên");
@@ -115,8 +128,51 @@ public class Menu {
                 }
             }while(choose !=5);
         }
-        if(role.equals("User")){
+        else{
+            if(role.equals("TruongPhong")){
+                TruongPhong tmpTruongPhong = (TruongPhong) tmp;
+                tmpTruongPhong.display();
+                if(!tmpTruongPhong.isDuocCapQuyen()){
 
+                }else{
+                    do {
+                        System.out.println("1/Quản lý bộ kiểm định");
+                        System.out.println("2/Quản lý Tiêu chuẩn");
+                        System.out.println("3/Quản lý Tiêu chí");
+                        System.out.println("4/Thêm quyền cho giảng viên");
+                        System.out.println("5/thoát");
+                        choose = Integer.parseInt(CauHinh.sc.nextLine());
+                        switch (choose){
+                            case 1:
+                                System.out.println("1/Tạo bộ kiểm định");
+                                System.out.println("2/Thêm tiêu chuẩn vào bộ kiểm định");
+                                choose = Integer.parseInt(CauHinh.sc.nextLine());
+                                if(choose == 1 || choose ==2){
+                                    if(choose == 1 ){
+                                        System.out.println("Nhập tên bộ kiểm định bạn muốn tạo");
+                                        BoKiemDinh tmpBKD = new BoKiemDinh(CauHinh.sc.nextLine());
+                                        dsBoKiemDinh.addBoKiemDinh(tmpBKD);
+                                    }else{
+                                        dsYeuCau.displayTieuChuan();
+                                        System.out.println("Mời bạn nhập tên tiêu chuẩn muốn thêm");
+                                        String tmpTc = CauHinh.sc.nextLine();
+                                        dsBoKiemDinh.diplayBoKiemDinh();
+                                        System.out.printf("Mời bạn nhập tên bộ kiểm định muốn thêm %s vào danh sach \n",tmpTc);
+                                        String tmpbkd = CauHinh.sc.nextLine();
+                                        dsBoKiemDinh.searchBoKiemDinh(tmpbkd).addTieuChuan((TieuChuan) dsYeuCau.findTieuChuanByName(tmpTc));
+                                        dsBoKiemDinh.diplayBoKiemDinh();
+                                        break;
+                                    }
+                                }else{
+                                    System.out.println("lỗi chọn");
+                                }
+                            case 2:
+                                break;
+                        }
+                    }while (true);
+                }
+
+            }
         }
     }
 }

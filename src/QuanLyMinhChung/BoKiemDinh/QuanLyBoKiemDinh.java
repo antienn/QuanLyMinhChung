@@ -1,7 +1,11 @@
 package QuanLyMinhChung.BoKiemDinh;
 
+import QuanLyMinhChung.MinhChung.MinhChung;
+
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class QuanLyBoKiemDinh {
     private ArrayList<BoKiemDinh> dsBoKiemDinh = new ArrayList<>();
@@ -17,5 +21,14 @@ public class QuanLyBoKiemDinh {
 
     public void setDsBoKiemDinh(ArrayList<BoKiemDinh> dsBoKiemDinh) {
         this.dsBoKiemDinh = dsBoKiemDinh;
+    }
+
+    public BoKiemDinh searchBoKiemDinh(String name) {
+        for (BoKiemDinh bkd : dsBoKiemDinh) {
+            if (bkd.getTenBoKiemDinh().equals(name)) {
+                return bkd;
+            }
+        }
+        return null;
     }
 }
