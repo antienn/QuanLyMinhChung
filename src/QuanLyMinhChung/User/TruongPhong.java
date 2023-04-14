@@ -15,9 +15,9 @@ public class TruongPhong extends User {
     public void display() {
         super.display();
         if(duocCapQuyen){
-            System.out.println("Bạn được quyền thêm các nội dung và cấp quyền cho giảng viên");
+            System.out.print(" | Bạn được quyền thêm các nội dung và cấp quyền cho giảng viên \n");
         }else{
-            System.out.println("Bạn không được quyền thêm các nội dung và cấp quyền cho giảng viên");
+            System.out.print(" | Bạn không được quyền thêm các nội dung và cấp quyền cho giảng viên \n");
         }
     }
     public void capQuyen(){

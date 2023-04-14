@@ -13,13 +13,13 @@ public class GiangVien extends User {
     @Override
     public void display() {
         super.display();
-        System.out.println("Danh sách tiêu chí được quản lí");
+        System.out.print(" | Danh sách tiêu chí được quản lí");
         if (getQhgv().getDsTieuChiDuocChinhSua().size() == 0) {
-            System.out.println("none");
+            System.out.print(" : Không");
         } else {
             qhgv.getDsTieuChiDuocChinhSua().forEach(YeuCau::display);
         }
-        System.out.printf("Được biên soạn tiêu chí: %s \n", (!qhgv.isDuocBienSoanTieuChi() ? "KHÔNG" : "ĐƯỢC"));
+        System.out.printf(" | Được biên soạn tiêu chí: %s \n", (!qhgv.isDuocBienSoanTieuChi() ? "KHÔNG" : "ĐƯỢC"));
 
     }
 

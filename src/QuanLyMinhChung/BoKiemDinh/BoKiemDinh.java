@@ -24,13 +24,18 @@ public class BoKiemDinh {
             dsTieuChuan.remove(tc);
         }
     }
-    public void display(){
+    public void display() {
         System.out.println("Tên bộ kiểm định: " + this.tenBoKiemDinh);
-        System.out.println("Danh sách tiêu chuẩn: ");
-        for (TieuChuan tc : this.dsTieuChuan) {
-            tc.display();
+        System.out.print("Danh sách tiêu chuẩn: ");
+        if (this.dsTieuChuan.size() == 0) {
+            System.out.println("Không có");
+        } else {
+            for (TieuChuan tc : this.dsTieuChuan) {
+                tc.display();
+            }
         }
     }
+
 
     public String getTenBoKiemDinh() {
         return tenBoKiemDinh;

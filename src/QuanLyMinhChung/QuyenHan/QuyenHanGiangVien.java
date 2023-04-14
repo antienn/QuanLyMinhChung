@@ -7,7 +7,7 @@ import java.util.List;
 
 public class QuyenHanGiangVien {
     private final List<TieuChi> dsTieuChiDuocChinhSua = new ArrayList<>();
-    private boolean duocBienSoanTieuChi;
+    private boolean duocBienSoanTieuChi = false;
     public QuyenHanGiangVien(){
         this.duocBienSoanTieuChi = false;
     }
@@ -21,6 +21,6 @@ public class QuyenHanGiangVien {
     }
 
     public void setDuocBienSoanTieuChi(boolean duocBienSoanTieuChi) {
-        this.duocBienSoanTieuChi = duocBienSoanTieuChi;
+        this.duocBienSoanTieuChi = !duocBienSoanTieuChi;
     }
 }

@@ -34,20 +34,25 @@ public class TieuChuan extends YeuCau {
     public void display() {
         System.out.printf("Ma Tieu Chuan : %s\n", getMaYeuCau());
         System.out.printf("Ten Tieu chuan : %s\n", getTenYeuCau());
-        System.out.println("Danh sách tiêu chí:");
-        for (TieuChi tc : dsTieuChi) {
-            System.out.printf(" - Ma Tieu Chi : %s \n", tc.getMaYeuCau());
-            System.out.printf(" - Ten Tieu Chi : %s\n", tc.getTenYeuCau());
-            if (tc.getDsMinhChung() == null || tc.getDsMinhChung().isEmpty()) {
-                System.out.println("- Tieu chi khong co danh sach minh chung");
-            } else {
-                System.out.println("- Danh sach minh chung:");
-                for (int i = 0; i < tc.getDsMinhChung().size(); i++) {
-                    System.out.println("  Minh chứng " + (i + 1) + ": ");
-                    System.out.println(tc.getDsMinhChung().get(i));
+        System.out.print("Danh sách tiêu chí:");
+        if(this.dsTieuChi.size() ==0 ){
+            System.out.println("Không có");
+        }
+        else{
+            for (TieuChi tc : dsTieuChi) {
+                System.out.printf(" - Ma Tieu Chi : %s \n", tc.getMaYeuCau());
+                System.out.printf(" - Ten Tieu Chi : %s\n", tc.getTenYeuCau());
+                if (tc.getDsMinhChung() == null || tc.getDsMinhChung().isEmpty()) {
+                    System.out.println("- Tieu chi khong co danh sach minh chung");
+                } else {
+                    System.out.println("- Danh sach minh chung:");
+                    for (int i = 0; i < tc.getDsMinhChung().size(); i++) {
+                        System.out.println("  Minh chứng " + (i + 1) + ": ");
+                        System.out.println(tc.getDsMinhChung().get(i));
+                    }
                 }
-            }
 
+            }
         }
     }
 

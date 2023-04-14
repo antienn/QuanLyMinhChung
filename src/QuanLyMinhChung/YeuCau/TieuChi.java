@@ -67,7 +67,7 @@ public class TieuChi extends YeuCau {
         choose = CauHinh.sc.nextInt();
         CauHinh.sc.nextLine(); // Đọc ký tự '\n' sau khi nhập số integer
         if (choose == 1) {
-           // Them Minh Chung Cho Tieu Chi
+            
 
         } else if (choose == 2) {
             boolean found = false;
@@ -78,7 +78,6 @@ public class TieuChi extends YeuCau {
                 if (mc.getTenMinhChung().equals(tenMinhChung)) {
                     System.out.printf("Thông tin hiện tại của Minh Chứng %s\n", tenMinhChung);
                     mc.display();
-                    System.out.printf("=================================================\n");
                     do {
                         System.out.printf("|===============================================|\n");
                         System.out.println("Chọn thông tin cần sửa:");

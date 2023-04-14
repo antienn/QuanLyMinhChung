@@ -19,8 +19,9 @@ public abstract class User {
         return this.name.equals(name) && this.pass.equals(pass);
     }
     public void display(){
-        System.out.printf("%s | %s |%s\n",this.id,this.name,this.getClass().getSimpleName());
+        System.out.printf("%-10s | %-20s | %-20s", this.id, this.name, this.getClass().getSimpleName());
     }
+
 
 
     public static User createUser(String name,String pass,String role){

@@ -86,27 +86,39 @@ public class Menu {
                         break;
                     }
                     case 3:{
+                        int chooseRoleGV;
                         dsUser.dsGiangVien().forEach(GiangVien::display);
+                        System.out.print("Nhap ten Giang vien can cap quyền : ");
                         String tmpname = CauHinh.sc.nextLine();
                         GiangVien tmpGV = (GiangVien) dsUser.findUserByName(tmpname);
                         if(tmpGV==null){
                             System.out.println("Không tìm thấy tên");
                             break;
                         }
-                        System.out.println("1/Cấp quyền biên soạn nội dung tiêu chí");
-                        System.out.println("2/Cấp quyền chỉnh sửa tiêu chí");
-                        int chooseRoleGV  = Integer.parseInt(CauHinh.sc.nextLine());
-                        switch (chooseRoleGV){
-                            case 1:
-                                tmpGV.getQhgv().setDuocBienSoanTieuChi(true);
-                                break;
-                            case 2:
-                                break;
-                            default: System.out.println("Lỗi truy cập");
-                        }
+                       do{
+                           System.out.println("1/Cấp quyền biên soạn nội dung tiêu chí");
+                           System.out.println("2/Cấp quyền chỉnh sửa tiêu chí");
+                           System.out.println("3/Thoat");
+                           System.out.print("Moi ban chon chuc nang : ");
+                           chooseRoleGV  = Integer.parseInt(CauHinh.sc.nextLine());
+                           switch (chooseRoleGV){
+                               case 1:
+                                   tmpGV.getQhgv().setDuocBienSoanTieuChi(false);
+                                   System.out.println("Cap quyen Thanh Cong");
+                                   break;
+                               case 2:
+
+                                   break;
+                               case 3:break;
+                               default:
+                                   System.out.println("Lỗi truy cập") ; break;
+                           }
+                       }while(chooseRoleGV!=3);
+                       break;
                     }
                     case 4:
                         dsUser.dsTruongPhong().forEach(TruongPhong::display);
+                        System.out.print("Nhap ten Truong Phong can cap quyền : ");
                         String tmpname = CauHinh.sc.nextLine();
                         int chooseRole = Integer.parseInt( CauHinh.sc.nextLine());
                         if(chooseRole > 4 ||chooseRole < 1){
