@@ -26,10 +26,18 @@ public class QuanLyYeuCau {
             }
         }
     }
-    public YeuCau findTieuChuanByName(String name){
+    public TieuChuan findTieuChuanByName(String name){
         for(YeuCau yc : ds){
-            if(yc.getClass().getSimpleName().equals("TieuChuan") &&yc.getTenYeuCau().equals(name)){
-                return yc;
+            if(yc.getClass().getSimpleName().equals("TieuChuan") && yc.getTenYeuCau().equals(name)){
+                return (TieuChuan) yc;
+            }
+        }
+        return null;
+    }
+    public TieuChi findTieuChiByName(String name){
+        for(YeuCau yc : ds){
+            if(yc.getClass().getSimpleName().equals("TieuChi") && yc.getTenYeuCau().equals(name)){
+                return (TieuChi) yc;
             }
         }
         return null;

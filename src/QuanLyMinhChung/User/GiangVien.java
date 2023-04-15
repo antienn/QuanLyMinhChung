@@ -1,6 +1,7 @@
 package QuanLyMinhChung.User;
 
 import QuanLyMinhChung.QuyenHan.QuyenHanGiangVien;
+import QuanLyMinhChung.YeuCau.TieuChi;
 import QuanLyMinhChung.YeuCau.YeuCau;
 
 public class GiangVien extends User {
@@ -27,8 +28,6 @@ public class GiangVien extends User {
         return qhgv;
     }
 
-    public void setQhgv(QuyenHanGiangVien qhgv) {
-        this.qhgv = qhgv;
-    }
+
 
 }

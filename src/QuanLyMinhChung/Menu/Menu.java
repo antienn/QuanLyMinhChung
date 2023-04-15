@@ -8,6 +8,7 @@ import QuanLyMinhChung.User.QuanLyUser;
 import QuanLyMinhChung.User.TruongPhong;
 import QuanLyMinhChung.User.User;
 import QuanLyMinhChung.YeuCau.QuanLyYeuCau;
+import QuanLyMinhChung.YeuCau.TieuChi;
 import QuanLyMinhChung.YeuCau.TieuChuan;
 import QuanLyMinhChung.YeuCau.YeuCau;
 import QuanLyMinhChung.admin.Admin;
@@ -18,6 +19,7 @@ public class Menu {
         //biến toàn cục
         String role = null;
         User tmp;
+        GiangVien gv;
         int choose;
 
         //Tạo nghiệp vụ
@@ -57,13 +59,12 @@ public class Menu {
                 System.out.println("=========MENU========");
                 System.out.println("1/Hiển thị danh sách user");
                 System.out.println("2/Tạo tài khoản");
-                System.out.println("3/Cấp quyền cho giảng viên");
-                System.out.println("4/Cấp quyền cho trưởng phòng");
-                System.out.println("5/thoát");
+                System.out.println("3/Cấp quyền cho trưởng phòng");
+                System.out.println("4/thoát");
                 choose = Integer.parseInt(CauHinh.sc.nextLine());
-                switch (choose){
-                    case 1: dsUser.display();break;
-                    case 2: {
+                switch (choose) {
+                    case 1 -> dsUser.display();
+                    case 2 -> {
                         User newUser = null;
                         System.out.print("Tên đăng nhập:");
                         String newName = CauHinh.sc.nextLine();
@@ -71,81 +72,48 @@ public class Menu {
                         String newPass = CauHinh.sc.nextLine();
                         System.out.print("role(GiangVien or TruongPhong):");
                         String newRole = CauHinh.sc.nextLine();
-                        if(newRole.equals("GiangVien")){
-                            newUser = new GiangVien(newName,newPass);
+                        if (newRole.equals("GiangVien")) {
+                            newUser = new GiangVien(newName, newPass);
                         }
-                        if(newRole.equals("TruongPhong")){
-                            newUser = new TruongPhong(newName,newPass);
+                        if (newRole.equals("TruongPhong")) {
+                            newUser = new TruongPhong(newName, newPass);
                         }
-                        if(newUser != null){
+                        if (newUser != null) {
                             dsUser.addUser(newUser);
                             System.out.println("tạo tài khoản thành công");
-                        }else{
+                        } else {
                             System.out.println("tạo tài khoản thất bại");
                         }
                         break;
                     }
-                    case 3:{
-                        int chooseRoleGV;
-                        dsUser.dsGiangVien().forEach(GiangVien::display);
-                        System.out.print("Nhap ten Giang vien can cap quyền : ");
-                        String tmpname = CauHinh.sc.nextLine();
-                        GiangVien tmpGV = (GiangVien) dsUser.findUserByName(tmpname);
-                        if(tmpGV==null){
-                            System.out.println("Không tìm thấy tên");
-                            break;
-                        }
-                       do{
-                           System.out.println("1/Cấp quyền biên soạn nội dung tiêu chí");
-                           System.out.println("2/Cấp quyền chỉnh sửa tiêu chí");
-                           System.out.println("3/Thoat");
-                           System.out.print("Moi ban chon chuc nang : ");
-                           chooseRoleGV  = Integer.parseInt(CauHinh.sc.nextLine());
-                           switch (chooseRoleGV){
-                               case 1:
-                                   tmpGV.getQhgv().setDuocBienSoanTieuChi(false);
-                                   System.out.println("Cap quyen Thanh Cong");
-                                   break;
-                               case 2:
-
-                                   break;
-                               case 3:break;
-                               default:
-                                   System.out.println("Lỗi truy cập") ; break;
-                           }
-                       }while(chooseRoleGV!=3);
-                       break;
-                    }
-                    case 4:
+                    case 3 -> {
                         dsUser.dsTruongPhong().forEach(TruongPhong::display);
                         System.out.print("Nhap ten Truong Phong can cap quyền : ");
                         String tmpname = CauHinh.sc.nextLine();
-                        int chooseRole = Integer.parseInt( CauHinh.sc.nextLine());
-                        if(chooseRole > 4 ||chooseRole < 1){
+                        int chooseRole = Integer.parseInt(CauHinh.sc.nextLine());
+                        if (chooseRole > 4 || chooseRole < 1) {
                             System.out.println("Quyền không tồn tại");
                             break;
                         }
-                        TruongPhong tmpTP = (TruongPhong)dsUser.findUserByName(tmpname);
-                        if(tmpTP!=null){
+                        TruongPhong tmpTP = (TruongPhong) dsUser.findUserByName(tmpname);
+                        if (tmpTP != null) {
                             tmpTP.capQuyen();
                             System.out.println("Cấp quyền thành công");
-                        }else{
+                        } else {
                             System.out.println("Không tìm thấy tên");
                         }
-                        break;
-                    case 5:
-                        System.out.println("Đã đăng suất thành công");
-                        break;
-                    default: System.out.println("Lỗi truy cập");
+                    }
+                    case 4 -> System.out.println("Đã đăng suất thành công");
+                    default -> System.out.println("Lỗi truy cập");
                 }
-            }while(choose !=5);
+            }while(choose !=4);
         }
         else{
             if(role.equals("TruongPhong")){
                 TruongPhong tmpTruongPhong = (TruongPhong) tmp;
                 tmpTruongPhong.display();
                 if(!tmpTruongPhong.isDuocCapQuyen()){
-
+                    System.out.println("Hãy yêu cầu admin cấp quyền cho bạn");
                 }else{
                     do {
                         System.out.println("1/Quản lý bộ kiểm định");
@@ -171,7 +139,7 @@ public class Menu {
                                         dsBoKiemDinh.diplayBoKiemDinh();
                                         System.out.printf("Mời bạn nhập tên bộ kiểm định muốn thêm %s vào danh sach \n",tmpTc);
                                         String tmpbkd = CauHinh.sc.nextLine();
-                                        dsBoKiemDinh.searchBoKiemDinh(tmpbkd).addTieuChuan((TieuChuan) dsYeuCau.findTieuChuanByName(tmpTc));
+                                        dsBoKiemDinh.searchBoKiemDinh(tmpbkd).addTieuChuan(dsYeuCau.findTieuChuanByName(tmpTc));
                                         dsBoKiemDinh.diplayBoKiemDinh();
                                         break;
                                     }
@@ -179,11 +147,77 @@ public class Menu {
                                     System.out.println("lỗi chọn");
                                 }
                             case 2:
+                                System.out.println("Mời bạn nhập tên tiêu chuẩn bạn muốn tạo");
+                                String tmptct = CauHinh.sc.nextLine();
+                                System.out.printf("Mời bạn nhập nội dung tiêu chuẩn %s",tmptct);
+                                String tmptcnd = CauHinh.sc.nextLine();
+                                dsYeuCau.addYeuCau(new TieuChuan(tmptct,tmptcnd));
+                                System.out.println("Đã thêm thành công");
                                 break;
+                            case 3:
+                                System.out.println("Mời bạn nhập tên tiêu chí bạn muốn tạo");
+                                String tmptchit = CauHinh.sc.nextLine();
+                                System.out.printf("Mời bạn nhập nội dung tiêu chí %s",tmptchit);
+                                String tmptchind = CauHinh.sc.nextLine();
+                                do{
+                                    dsYeuCau.displayTieuChuan();
+                                    System.out.println("Mời bạn nhập tên tiêu chuẩn bạn muốn tạo");
+                                    String tmptcthem = CauHinh.sc.nextLine();
+                                    if(dsYeuCau.findTieuChuanByName(tmptcthem)!=null) {
+                                        dsYeuCau.addYeuCau(new TieuChi(tmptchit,tmptchind, dsYeuCau.findTieuChuanByName(tmptcthem)));
+                                        System.out.println("Đã thêm thành công");
+                                        break;
+                                    }
+                                }while(true);
+                                break;
+                            case 4:
+                                dsUser.dsGiangVien().forEach(GiangVien::display);
+                                do{
+                                    System.out.println("Mời bạn nhập tên giảng viên bạn muốn cấp quyền");
+                                    String tmpgvten = CauHinh.sc.nextLine();
+                                    if(dsUser.findUserByName(tmpgvten)!=null){
+                                        gv = (GiangVien) dsUser.findUserByName(tmpgvten);
+                                        break;
+                                    }else{
+                                        System.out.println("Không tìm thấy tên giảng viên");
+                                    }
+                                }while (true);
+                                System.out.println("1/cấp quyền cho giảng viên gắn minh chứng cho tiêu chí ");
+                                System.out.println("2/ cấp quyền soạn tiêu chí");
+                                choose = Integer.parseInt(CauHinh.sc.nextLine());
+                                if(choose == 1 || choose == 2 ){
+                                    if(choose == 1){
+                                        dsYeuCau.displayTieuChi();
+                                        System.out.println("Mời bạn nhập tên tiêu chí muốn cấp quyền cho giảng viên");
+                                        String tmpten = CauHinh.sc.nextLine();
+                                        if(dsYeuCau.findTieuChiByName(tmpten)!=null){
+                                            gv.getQhgv().addTieuChi(dsYeuCau.findTieuChiByName(tmpten));
+                                            System.out.println("Cấp quyền thành công");
+                                        }else{
+                                            System.out.printf("Tiêu chí %s không tồn tại",tmpten);
+                                        }
+                                    }else{
+                                        gv.getQhgv().setDuocBienSoanTieuChi();
+                                        System.out.println("Cấp quyền thành công");
+                                    }
+                                }else{
+                                    System.out.println("Lỗi chọn");
+                                }
+                                break;
+                            case 5:
+                                System.out.println("đăng xuất thành công");
+                                break;
+
                         }
-                    }while (true);
+                    }while (choose!=5);
                 }
 
+            }else{
+                do{
+                    System.out.println("1/Chỉnh sửa tiêu chí");
+                    System.out.println("2/Biên soạn tiêu chí");
+                    choose = Integer.parseInt(CauHinh.sc.nextLine());
+                }while (choose !=2);
             }
         }
     }

@@ -16,11 +16,15 @@ public class QuyenHanGiangVien {
         return dsTieuChiDuocChinhSua;
     }
 
+    public void addTieuChi(TieuChi tc){
+        this.dsTieuChiDuocChinhSua.add(tc);
+    }
+
     public boolean isDuocBienSoanTieuChi() {
         return duocBienSoanTieuChi;
     }
 
-    public void setDuocBienSoanTieuChi(boolean duocBienSoanTieuChi) {
+    public void setDuocBienSoanTieuChi() {
         this.duocBienSoanTieuChi = !duocBienSoanTieuChi;
     }
 }
