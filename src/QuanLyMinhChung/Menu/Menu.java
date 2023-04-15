@@ -124,17 +124,17 @@ public class Menu {
                         choose = Integer.parseInt(CauHinh.sc.nextLine());
                         switch (choose){
                             case 1:
-                                System.out.println("1/Tạo bộ kiểm định");
-                                System.out.println("2/Thêm tiêu chuẩn vào bộ kiểm định");
+                                System.out.println("1/Tạo bộ kiểm định : ");
+                                System.out.println("2/Thêm tiêu chuẩn vào bộ kiểm định : ");
                                 choose = Integer.parseInt(CauHinh.sc.nextLine());
                                 if(choose == 1 || choose ==2){
                                     if(choose == 1 ){
-                                        System.out.println("Nhập tên bộ kiểm định bạn muốn tạo");
+                                        System.out.println("Nhập tên bộ kiểm định bạn muốn tạo : ");
                                         BoKiemDinh tmpBKD = new BoKiemDinh(CauHinh.sc.nextLine());
                                         dsBoKiemDinh.addBoKiemDinh(tmpBKD);
                                     }else{
                                         dsYeuCau.displayTieuChuan();
-                                        System.out.println("Mời bạn nhập tên tiêu chuẩn muốn thêm");
+                                        System.out.println("Mời bạn nhập tên tiêu chuẩn muốn thêm : ");
                                         String tmpTc = CauHinh.sc.nextLine();
                                         dsBoKiemDinh.diplayBoKiemDinh();
                                         System.out.printf("Mời bạn nhập tên bộ kiểm định muốn thêm %s vào danh sach \n",tmpTc);
@@ -147,17 +147,18 @@ public class Menu {
                                     System.out.println("lỗi chọn");
                                 }
                             case 2:
-                                System.out.println("Mời bạn nhập tên tiêu chuẩn bạn muốn tạo");
+                                System.out.println("Mời bạn nhập tên tiêu chuẩn bạn muốn tạo : ");
                                 String tmptct = CauHinh.sc.nextLine();
-                                System.out.printf("Mời bạn nhập nội dung tiêu chuẩn %s",tmptct);
+                                System.out.printf("Mời bạn nhập nội dung tiêu chuẩn :  %s",tmptct);
                                 String tmptcnd = CauHinh.sc.nextLine();
                                 dsYeuCau.addYeuCau(new TieuChuan(tmptct,tmptcnd));
                                 System.out.println("Đã thêm thành công");
                                 break;
                             case 3:
-                                System.out.println("Mời bạn nhập tên tiêu chí bạn muốn tạo");
+                                boolean found = false;
+                                System.out.println("Mời bạn nhập tên tiêu chí bạn muốn tạo : ");
                                 String tmptchit = CauHinh.sc.nextLine();
-                                System.out.printf("Mời bạn nhập nội dung tiêu chí %s",tmptchit);
+                                System.out.printf("Mời bạn nhập nội dung tiêu chí :  %s",tmptchit);
                                 String tmptchind = CauHinh.sc.nextLine();
                                 do{
                                     dsYeuCau.displayTieuChuan();
@@ -166,9 +167,10 @@ public class Menu {
                                     if(dsYeuCau.findTieuChuanByName(tmptcthem)!=null) {
                                         dsYeuCau.addYeuCau(new TieuChi(tmptchit,tmptchind, dsYeuCau.findTieuChuanByName(tmptcthem)));
                                         System.out.println("Đã thêm thành công");
+                                        found = true;
                                         break;
                                     }
-                                }while(true);
+                                }while(!found);
                                 break;
                             case 4:
                                 dsUser.dsGiangVien().forEach(GiangVien::display);

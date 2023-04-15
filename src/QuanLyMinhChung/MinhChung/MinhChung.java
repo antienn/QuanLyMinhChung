@@ -19,7 +19,10 @@ public class MinhChung {
     {
         this.maMinhChung = String.format("MC%05d", ++countMinhChung);
     }
-    public MinhChung(){}
+
+    public MinhChung() {
+    }
+
     public MinhChung(String tenMinhChung, String noiBanHanh, Date ngayBanHanh) {
         this.tenMinhChung = tenMinhChung;
         this.noiBanHanh = noiBanHanh;
@@ -55,20 +58,25 @@ public class MinhChung {
         System.out.printf("-Ngay Ban Hanh : %s\n", CauHinh.f.format(this.ngayBanHanh));
     }
 
-    public void nhapThongTinChung() {
+    public MinhChung nhapThongTinChung() {
         System.out.print("Nhập tên Minh Chứng mới: ");
         String tenMinhChung = CauHinh.sc.nextLine();
         System.out.print("Nhập nơi ban hành: ");
         String noiBanHanh = CauHinh.sc.nextLine();
-        System.out.print("Nhập ngày ban hành (theo định dạng dd/MM/yyyy): ");
-        String ngayBanHanhStr = CauHinh.sc.nextLine();
+        System.out.println("Nhap ngay ban hanh moi (dd/MM/yyyy):");
+        Date ngayBanHanhMoi = null;
         try {
-            Date ngayBanHanh = CauHinh.f.parse(ngayBanHanhStr);
-            MinhChung newMinhChung = new MinhChung(tenMinhChung, noiBanHanh, ngayBanHanh);
+            ngayBanHanhMoi = CauHinh.f.parse(CauHinh.sc.nextLine());
+            MinhChung newMinhChung = new MinhChung(tenMinhChung,noiBanHanh,CauHinh.f.format(ngayBanHanhMoi));
+            return newMinhChung;
         } catch (ParseException e) {
-            System.out.println("Định dạng ngày không hợp lệ!");
+            System.out.println("Ngay ban hanh khong hop le.");
+            return null;
         }
     }
+
+
+
 
     public String getMaMinhChung() {
         return maMinhChung;
