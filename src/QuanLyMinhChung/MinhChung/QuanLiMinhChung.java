@@ -1,6 +1,7 @@
 package QuanLyMinhChung.MinhChung;
 
 import QuanLyMinhChung.CauHinh.CauHinh;
+import QuanLyMinhChung.PhongBan.PhongBan;
 
 import java.text.ParseException;
 import java.util.*;
@@ -34,6 +35,20 @@ public class QuanLiMinhChung {
         return this.danhsachMinChung.stream()
                 .filter(x -> CauHinh.f.format(x.getNgayBanHanh()).equals(ngayBanHanhStr))
                 .collect(Collectors.toList());
+    }
+
+    //SearchMinhChung theo Phong ban
+    public List<MinhChung> searchMinhChungByPhongBan(String tenPhongBan) {
+        return this.danhsachMinChung.stream().filter(x -> {
+            for(var y: x.getCungCapMinhChung()){
+                if(y.getPhongBan().getTenPhongBan().equals(tenPhongBan)) return true;
+            }
+            return false;
+        }).collect(Collectors.toList());
+    }
+    //Xep theo ngay Tao Minh Chung
+    public void xepNgayTaoMinhChung(){
+        this.danhsachMinChung.sort((mc1, mc2) -> mc1.getNgayBanHanh().compareTo(mc2.getNgayBanHanh()));
     }
 
     public void sapXepMinhChungTheoTen() {

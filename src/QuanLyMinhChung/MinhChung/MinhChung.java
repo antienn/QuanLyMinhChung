@@ -17,7 +17,7 @@ public class MinhChung {
     private List<CungCap> cungCapMinhChung;
 
     {
-        this.maMinhChung = String.format("MC%05d", ++countMinhChung);
+        maMinhChung = String.format("MC%05d", ++countMinhChung);
     }
 
     public MinhChung() {

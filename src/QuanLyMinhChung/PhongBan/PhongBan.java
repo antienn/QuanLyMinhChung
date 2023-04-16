@@ -11,14 +11,23 @@ public class PhongBan {
     private String maPhongBan;
     private String tenPhongBan;
     private String diaDiemPhongBan;
-    private List<CungCap> cungCapList;
+    private List<CungCap> cungCapMinhChung;
+
+    public List<CungCap> getCungCapMinhChung() {
+        return cungCapMinhChung;
+    }
+
+    public void setCungCapMinhChung(List<CungCap> cungCapMinhChung) {
+        this.cungCapMinhChung = cungCapMinhChung;
+    }
+
     {
         maPhongBan = String.format("PB%05d",++countMaPhongBan);
     }
     public PhongBan( String tenPhongBan, String diaDiemPhongBan) {
         this.tenPhongBan = tenPhongBan;
         this.diaDiemPhongBan = diaDiemPhongBan;
-        this.cungCapList = new ArrayList<>();
+        this.cungCapMinhChung = new ArrayList<>();
     }
 
     @Override
@@ -50,13 +59,7 @@ public class PhongBan {
         this.diaDiemPhongBan = diaDiemPhongBan;
     }
 
-    public List<CungCap> getCungCapList() {
-        return cungCapList;
-    }
 
-    public void setCungCapList(List<CungCap> cungCapList) {
-        this.cungCapList = cungCapList;
-    }
 
 
 }

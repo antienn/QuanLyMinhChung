@@ -14,7 +14,8 @@ public class CungCap {
     private Date ngayCungCap;
     private Date ngayTaoMinhChungSystem;
 
-    public CungCap(PhongBan phongBan, MinhChung minhChung, String ngayCungCap, String ngayTaoMinhChungSystem) {
+    public CungCap(){};
+    public void ghiNhanCungCap(PhongBan phongBan, MinhChung minhChung, String ngayCungCap, String ngayTaoMinhChungSystem) {
         this.phongBan = phongBan;
         this.minhChung = minhChung;
         try {
@@ -23,8 +24,9 @@ public class CungCap {
         } catch (ParseException ex) {
             ex.printStackTrace();
         }
+        this.phongBan.getCungCapMinhChung().add(this);
+        this.minhChung.getCungCapMinhChung().add(this);
     }
-
     public void xuatThongTin() {
         System.out.println("Phòng ban: " + phongBan.getTenPhongBan());
         System.out.println("Mã minh chứng: " + minhChung.getMaMinhChung());
