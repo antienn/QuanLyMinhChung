@@ -58,22 +58,6 @@ public class MinhChung {
         System.out.printf("-Ngay Ban Hanh : %s\n", CauHinh.f.format(this.ngayBanHanh));
     }
 
-    public MinhChung nhapThongTinChung() {
-        System.out.print("Nhập tên Minh Chứng mới: ");
-        String tenMinhChung = CauHinh.sc.nextLine();
-        System.out.print("Nhập nơi ban hành: ");
-        String noiBanHanh = CauHinh.sc.nextLine();
-        System.out.println("Nhap ngay ban hanh moi (dd/MM/yyyy):");
-        Date ngayBanHanhMoi = null;
-        try {
-            ngayBanHanhMoi = CauHinh.f.parse(CauHinh.sc.nextLine());
-            MinhChung newMinhChung = new MinhChung(tenMinhChung,noiBanHanh,CauHinh.f.format(ngayBanHanhMoi));
-            return newMinhChung;
-        } catch (ParseException e) {
-            System.out.println("Ngay ban hanh khong hop le.");
-            return null;
-        }
-    }
 
 
 

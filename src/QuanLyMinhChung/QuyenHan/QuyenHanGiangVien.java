@@ -1,6 +1,7 @@
 package QuanLyMinhChung.QuyenHan;
 
 import QuanLyMinhChung.YeuCau.TieuChi;
+import QuanLyMinhChung.YeuCau.YeuCau;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +15,18 @@ public class QuyenHanGiangVien {
 
     public List<TieuChi> getDsTieuChiDuocChinhSua() {
         return dsTieuChiDuocChinhSua;
+    }
+
+    public void show(){
+        this.dsTieuChiDuocChinhSua.forEach(x -> System.out.println(x.getTenYeuCau()));
+    }
+    public TieuChi findTieuChi(String name){
+        for( TieuChi tc : dsTieuChiDuocChinhSua){
+            if(tc.getTenYeuCau().equals(name)){
+                return tc;
+            }
+        }
+        return null;
     }
 
     public void addTieuChi(TieuChi tc){

@@ -36,6 +36,22 @@ public class QuanLiMinhChung {
                 .filter(x -> CauHinh.f.format(x.getNgayBanHanh()).equals(ngayBanHanhStr))
                 .collect(Collectors.toList());
     }
+    public boolean removeMinhChung(String kw) {
+        this.danhsachMinChung.removeIf(x ->{
+            x.getTenMinhChung().contains(kw);
+            return true;
+        });
+        return false;
+    }
+
+    public MinhChung tonTai(String name){
+        for(MinhChung e : this.danhsachMinChung){
+            if(e.getTenMinhChung().equals(name)){
+                return e;
+            }
+        }
+        return null;
+    }
 
     //SearchMinhChung theo Phong ban
     public List<MinhChung> searchMinhChungByPhongBan(String tenPhongBan) {
@@ -55,10 +71,6 @@ public class QuanLiMinhChung {
         this.danhsachMinChung.sort(Comparator.comparing(MinhChung::getTenMinhChung));
     }
 
-    //search Minh Chung theo phong Ban
-    public void addMinhChung() {
-        this.danhsachMinChung.forEach(h -> h.nhapThongTinChung());
-    }
 
     public List<MinhChung> searchMinhChungNoiBanHanh(String noiBanHanh) {
         return this.danhsachMinChung.stream().filter(x -> x.getNoiBanHanh().contains(noiBanHanh)).collect(Collectors.toList());

@@ -3,6 +3,8 @@ package QuanLyMinhChung.Menu;
 import QuanLyMinhChung.BoKiemDinh.BoKiemDinh;
 import QuanLyMinhChung.BoKiemDinh.QuanLyBoKiemDinh;
 import QuanLyMinhChung.CauHinh.CauHinh;
+import QuanLyMinhChung.MinhChung.MinhChung;
+import QuanLyMinhChung.MinhChung.QuanLiMinhChung;
 import QuanLyMinhChung.User.GiangVien;
 import QuanLyMinhChung.User.QuanLyUser;
 import QuanLyMinhChung.User.TruongPhong;
@@ -13,9 +15,12 @@ import QuanLyMinhChung.YeuCau.TieuChuan;
 import QuanLyMinhChung.YeuCau.YeuCau;
 import QuanLyMinhChung.admin.Admin;
 
+import java.text.ParseException;
+import java.util.Date;
+
 
 public class Menu {
-    public static void main(String[] args) throws ClassNotFoundException {
+    public static void main(String[] args) throws ParseException {
         //biến toàn cục
         String role = null;
         User tmp;
@@ -28,8 +33,13 @@ public class Menu {
         dsBoKiemDinh.addBoKiemDinh(a);
 
         YeuCau b = new TieuChuan("4 kỹ năng","speaking,writing,reading,listening");
+        YeuCau c = new TieuChi("speaking","trên 6.5", (TieuChuan) b);
         QuanLyYeuCau dsYeuCau = new QuanLyYeuCau();
-        dsYeuCau.addYeuCau(b);
+        dsYeuCau.addYeuCau(b,c);
+
+        MinhChung d = new MinhChung("Điểm số","TPHCM","19/4/2023");
+        QuanLiMinhChung dsMinhChung = new QuanLiMinhChung();
+        dsMinhChung.addMinhChung(d);
         //Tạo đối tượng
         Admin admin = new Admin();
         User u1 = new GiangVien("AnTien","123");
@@ -60,7 +70,11 @@ public class Menu {
                 System.out.println("1/Hiển thị danh sách user");
                 System.out.println("2/Tạo tài khoản");
                 System.out.println("3/Cấp quyền cho trưởng phòng");
-                System.out.println("4/thoát");
+                System.out.println("4/Tìm kiếm minh chứng theo tên");
+                System.out.println("5/Tìm kiếm minh chứng theo cơ quan");
+                System.out.println("6/Tìm kiếm minh chứng theo ngày ban hành");
+                System.out.println("7/Tìm kiếm minh chứng theo phòng ban cung cấp");
+                System.out.println("8/thoát");
                 choose = Integer.parseInt(CauHinh.sc.nextLine());
                 switch (choose) {
                     case 1 -> dsUser.display();
@@ -84,7 +98,6 @@ public class Menu {
                         } else {
                             System.out.println("tạo tài khoản thất bại");
                         }
-                        break;
                     }
                     case 3 -> {
                         dsUser.dsTruongPhong().forEach(TruongPhong::display);
@@ -103,10 +116,29 @@ public class Menu {
                             System.out.println("Không tìm thấy tên");
                         }
                     }
-                    case 4 -> System.out.println("Đã đăng suất thành công");
+                    case 4 -> {
+                        System.out.print("Bạn muốn biết thông tin minh chứng theo tên: ");
+                        String tmpName = CauHinh.sc.nextLine();
+                        dsMinhChung.searchMinhChung(tmpName).forEach(MinhChung::display);
+                    }
+                    case 5 -> {
+                        System.out.print("Bạn muốn biết thông tin minh chứng theo cơ quan: ");
+                        String tmpCoQuan = CauHinh.sc.nextLine();
+                        dsMinhChung.searchMinhChungNoiBanHanh(tmpCoQuan).forEach(MinhChung::display);
+                    }
+                    case 6 -> {
+                        System.out.print("Bạn muốn biết thông tin minh chứng theo ngày ban hành: ");
+                        String tmpStringNgayBanHanh = CauHinh.sc.nextLine();
+                        Date ngayBanHanh = CauHinh.f.parse(tmpStringNgayBanHanh);
+                        dsMinhChung.searchMinhChung(ngayBanHanh).forEach(MinhChung::display);
+                    }
+                    case 7 -> {
+
+                    }
+                    case 8 -> System.out.println("Đã đăng suất thành công");
                     default -> System.out.println("Lỗi truy cập");
                 }
-            }while(choose !=4);
+            }while(choose !=8);
         }
         else{
             if(role.equals("TruongPhong")){
@@ -155,7 +187,6 @@ public class Menu {
                                 System.out.println("Đã thêm thành công");
                                 break;
                             case 3:
-                                boolean found = false;
                                 System.out.println("Mời bạn nhập tên tiêu chí bạn muốn tạo : ");
                                 String tmptchit = CauHinh.sc.nextLine();
                                 System.out.printf("Mời bạn nhập nội dung tiêu chí :  %s",tmptchit);
@@ -167,10 +198,9 @@ public class Menu {
                                     if(dsYeuCau.findTieuChuanByName(tmptcthem)!=null) {
                                         dsYeuCau.addYeuCau(new TieuChi(tmptchit,tmptchind, dsYeuCau.findTieuChuanByName(tmptcthem)));
                                         System.out.println("Đã thêm thành công");
-                                        found = true;
                                         break;
                                     }
-                                }while(!found);
+                                }while(true);
                                 break;
                             case 4:
                                 dsUser.dsGiangVien().forEach(GiangVien::display);
@@ -215,12 +245,76 @@ public class Menu {
                 }
 
             }else{
+                GiangVien tmpGiangVien = (GiangVien) tmp;
+                ((GiangVien) tmp).getQhgv().show();
+                System.out.println("Mời bạn nhập tên tiêu chí bạn muốn chỉnh sửa : ");
+                TieuChi tc;
                 do{
-                    System.out.println("1/Chỉnh sửa tiêu chí");
-                    System.out.println("2/Biên soạn tiêu chí");
-                    choose = Integer.parseInt(CauHinh.sc.nextLine());
-                }while (choose !=2);
+                    String tmptchit = CauHinh.sc.nextLine();
+                    if(tmpGiangVien.getQhgv().findTieuChi(tmptchit) != null){
+                        tc = tmpGiangVien.getQhgv().findTieuChi(tmptchit);
+                        break;
+                    }else{
+                        System.out.printf("Tên %s bạn nhập không có trong danh sách tiêu chí bạn muốn chỉnh sửa : ",tmptchit);
+                    }
+                }while (true);
+                do {
+                    System.out.println("Bạn muốn thêm Minh Chứng mới hay cập nhật Minh Chứng có sẵn?");
+                    System.out.println("1. Thêm mới");
+                    System.out.println("2. Cập nhật Minh Chứng có sẵn");
+                    System.out.println("3. Xoa Minh chung");
+                    System.out.println("4. Thoat");
+
+                    System.out.print("- Chọn chức năng: ");
+                    choose = CauHinh.sc.nextInt();
+                    CauHinh.sc.nextLine(); // Đọc ký tự '\n' sau khi nhập số integer
+                    switch (choose){
+                        case 1:{
+                            System.out.print("Nhập tên Minh Chứng mới: ");
+                            String tenMinhChung = CauHinh.sc.nextLine();
+                            System.out.print("Nhập nơi ban hành: ");
+                            String noiBanHanh = CauHinh.sc.nextLine();
+                            System.out.println("Nhap ngay ban hanh moi (dd/MM/yyyy):");
+                            Date ngayBanHanhMoi = null;
+                            try {
+                                ngayBanHanhMoi = CauHinh.f.parse(CauHinh.sc.nextLine());
+                                MinhChung newMinhChung = new MinhChung(tenMinhChung,noiBanHanh,CauHinh.f.format(ngayBanHanhMoi));
+                                dsMinhChung.addMinhChung(newMinhChung);
+                                tc.addMinhChung(newMinhChung);
+                            } catch (ParseException e) {
+                                System.out.println("Ngay ban hanh khong hop le.");
+                            }
+                            break;
+                        }
+                        case 2:
+                            System.out.println(tc.getTenYeuCau());
+                            tc.showMinhChung();
+                            System.out.println("danh sách minh chứng:");
+                            dsMinhChung.display();
+                            System.out.println("Mời bạn nhập tên minh chứng bạn muốn thêm:");
+                            MinhChung tmpMinhChung = dsMinhChung.tonTai(CauHinh.sc.nextLine());
+                            if(!tc.tonTai(tmpMinhChung)){
+                                tc.addMinhChung(tmpMinhChung);
+                                System.out.println("Thêm thành công!");
+                            }else{
+                                System.out.printf("Không thể thêm vào %s",tc.getTenYeuCau());
+                            }
+                        case 3:
+                            System.out.print("Nhap ten Minh Chung can xoa : ");
+                            String tpmMinhChung = CauHinh.sc.nextLine();
+                            if (tc.removeMinhChung(tpmMinhChung)){
+                                dsMinhChung.removeMinhChung(tpmMinhChung);
+                                System.out.println("Xoa Minh Chung Thanh cong");
+                            }else{
+                                System.out.printf("Không tìm thấy minh chứng %s trong %s",tpmMinhChung,tc.getTenYeuCau() );
+                            }
+                            break;
+                        case 4:
+                            break;
+                    }
+                }while (choose!=4);
             }
+
         }
     }
 }

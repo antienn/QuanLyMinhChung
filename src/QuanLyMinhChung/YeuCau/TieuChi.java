@@ -79,123 +79,25 @@ public class TieuChi extends YeuCau {
             System.out.println("Minh chứng đã tồn tại trong danh sách");
         }
     }
-
-    public void updateOrAddMinhChung() {
-        int choose;
-       boolean isFound;
-       do {
-           isFound = false;
-           System.out.println("Bạn muốn thêm Minh Chứng mới hay cập nhật Minh Chứng có sẵn?");
-           System.out.println("1. Thêm mới");
-           System.out.println("2. Cập nhật Minh Chứng có sẵn");
-           System.out.println("3. Xoa Minh chung");
-           System.out.println("4. Thoat");
-
-           System.out.print("- Chọn chức năng: ");
-           choose = CauHinh.sc.nextInt();
-           CauHinh.sc.nextLine(); // Đọc ký tự '\n' sau khi nhập số integer
-           switch (choose){
-               case 1:{
-                   System.out.print("Nhập tên Minh Chứng mới: ");
-                   String tenMinhChung = CauHinh.sc.nextLine();
-                   System.out.print("Nhập nơi ban hành: ");
-                   String noiBanHanh = CauHinh.sc.nextLine();
-                   System.out.println("Nhap ngay ban hanh moi (dd/MM/yyyy):");
-                   Date ngayBanHanhMoi = null;
-                   try {
-                       ngayBanHanhMoi = CauHinh.f.parse(CauHinh.sc.nextLine());
-                       MinhChung newMinhChung = new MinhChung(tenMinhChung,noiBanHanh,CauHinh.f.format(ngayBanHanhMoi));
-                       this.addMinhChung(newMinhChung);
-                   } catch (ParseException e) {
-                       System.out.println("Ngay ban hanh khong hop le.");
-                   }
-               }
-               break;
-               case 2:{
-                   boolean found = false;
-
-                   System.out.print("Nhập tên Minh Chứng cần cập nhật: ");
-                   String tenMinhChung = CauHinh.sc.nextLine();
-                   for (MinhChung mc : dsMinhChung) {
-                       if (mc.getTenMinhChung().equals(tenMinhChung)) {
-                           System.out.printf("Thông tin hiện tại của Minh Chứng %s\n", tenMinhChung);
-                           mc.display();
-                           do {
-                               System.out.printf("|===============================================|\n");
-                               System.out.println("Chọn thông tin cần sửa:");
-                               System.out.println("1. Tên minh chứng");
-                               System.out.println("2. Nơi ban hành");
-                               System.out.println("3. Ngày ban hành");
-                               System.out.println("4. Thoat");
-                               System.out.printf("|==============================================|\n");
-                               System.out.print("-Chon chuc nang  : ");
-                               choose = CauHinh.sc.nextInt();
-                               CauHinh.sc.nextLine();
-                               switch (choose) {
-                                   case 1:
-                                       System.out.print("Nhập tên minh chứng mới (bỏ qua nếu không muốn sửa): ");
-                                       String tenMinhChungMoi = CauHinh.sc.nextLine();
-                                       if (!tenMinhChungMoi.isEmpty()) {
-                                           mc.setTenMinhChung(tenMinhChungMoi);
-                                       }
-                                       System.out.print(" Chỉnh sửa thành công ");
-                                       break;
-                                   case 2:
-                                       System.out.print("Nhập nơi ban hành mới (bỏ qua nếu không muốn sửa): ");
-                                       String noiBanHanhMoi = CauHinh.sc.nextLine();
-                                       if (!noiBanHanhMoi.isEmpty()) {
-                                           mc.setNoiBanHanh(noiBanHanhMoi);
-                                       }
-                                       System.out.print(" Chỉnh sửa thành công ");
-                                       break;
-                                   case 3:
-                                       System.out.print("Nhập ngày ban hành mới (theo định dạng dd/MM/yyyy, bỏ qua nếu không muốn sửa): ");
-                                       String ngayBanHanhMoiStr = CauHinh.sc.nextLine();
-                                       if (!ngayBanHanhMoiStr.isEmpty()) {
-                                           try {
-                                               Date ngayBanHanhMoi = CauHinh.f.parse(ngayBanHanhMoiStr);
-                                               mc.setNgayBanHanh(ngayBanHanhMoi);
-                                           } catch (ParseException e) {
-                                               System.out.println("Định dạng ngày không hợp lệ!");
-                                           }
-                                       }
-                                       System.out.print(" Chỉnh sửa thành công ");
-                                       break;
-                                   case 4:
-                                       break;
-                                   default:
-                                       System.out.println("Lựa chọn không hợp lệ!");
-                                       break;
-                               }
-                           } while (choose != 4);
-
-                           found = true;
-                       }
-                   }
-                   if (!found) {
-                       System.out.print("Không tìm thấy tên minh chứng cần cập nhật.");
-                   }
-               }
-               case 3:
-                        System.out.print("Nhap ten Minh Chung can xoa : ");
-                        String tpmMinhCung = CauHinh.sc.nextLine();
-                        this.removeMinhChung(tpmMinhCung);
-                        System.out.println("Xoa Minh Chung Thanh cong");
-
-                   break;
-               case 4:
-                   isFound = true;
-                   break;
-           }
-       }while (!isFound);
-
-    }
-
     // ham xoa minh chung theo ten
-    public void removeMinhChung(String kw) {
-        this.dsMinhChung.removeIf(x -> x.getTenMinhChung().contains(kw));
+    public boolean removeMinhChung(String kw) {
+        this.dsMinhChung.removeIf(x ->{
+            x.getTenMinhChung().contains(kw);
+            return true;
+        });
+        return false;
     }
-
+    public void showMinhChung(){
+        dsMinhChung.forEach(e->e.display());
+    }
+    public boolean tonTai(MinhChung name){
+        for(MinhChung e : this.dsMinhChung){
+            if(e.equals(name)){
+                return true;
+            }
+        }
+        return false;
+    }
 
     public TieuChuan getThuocTieuChuan() {
         return thuocTieuChuan;
