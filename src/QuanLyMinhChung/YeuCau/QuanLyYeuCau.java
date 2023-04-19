@@ -15,7 +15,9 @@ public class QuanLyYeuCau {
     public void displayTieuChi(){
         for(YeuCau yc : ds){
             if(yc.getClass().getSimpleName().equals("TieuChi")){
-                yc.display();
+                System.out.printf("\nMa Tieu chi : %s\n", yc.maYeuCau );
+                System.out.printf("Ten Tieu Chi : %s\n", yc.tenYeuCau );
+                System.out.printf("Noi Tieu Chi : %s\n", yc.noiDung );
             }
         }
     }

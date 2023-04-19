@@ -14,15 +14,22 @@ public class GiangVien extends User {
     @Override
     public void display() {
         super.display();
-        System.out.print(" | Danh sách tiêu chí được quản lí");
-        if (getQhgv().getDsTieuChiDuocChinhSua().size() == 0) {
-            System.out.print(" : Không");
+        System.out.printf(" | Được biên soạn tiêu chí: %s\n", (qhgv.isDuocBienSoanTieuChi() ? "Có" : "Không"));
+        System.out.print("| Danh sách tiêu chí được quản lí: ");
+        if (qhgv.getDsTieuChiDuocChinhSua().isEmpty()) {
+            System.out.print("Không có tiêu chí nào được quản lí.\n");
         } else {
-            qhgv.getDsTieuChiDuocChinhSua().forEach(YeuCau::display);
+            System.out.printf(" \n Số lượng tiêu chí: %d\n", qhgv.getDsTieuChiDuocChinhSua().size());
+            System.out.printf("%-20s | %-20s | %s\n", "Mã tiêu chí", "Tên tiêu chí", "Nội dung tiêu chí");
+            qhgv.getDsTieuChiDuocChinhSua().forEach(tieuChi -> {
+                System.out.printf("%-20s | %-20s | %s\n", tieuChi.getMaYeuCau(), tieuChi.getTenYeuCau(), tieuChi.getNoiDung());
+            });
+            System.out.println();
         }
-        System.out.printf(" | Được biên soạn tiêu chí: %s \n", (!qhgv.isDuocBienSoanTieuChi() ? "KHÔNG" : "ĐƯỢC"));
-
     }
+
+
+
 
     public QuyenHanGiangVien getQhgv() {
         return qhgv;

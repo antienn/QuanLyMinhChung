@@ -5,6 +5,7 @@ import QuanLyMinhChung.BoKiemDinh.QuanLyBoKiemDinh;
 import QuanLyMinhChung.CauHinh.CauHinh;
 import QuanLyMinhChung.MinhChung.MinhChung;
 import QuanLyMinhChung.MinhChung.QuanLiMinhChung;
+import QuanLyMinhChung.PhongBan.PhongBan;
 import QuanLyMinhChung.User.GiangVien;
 import QuanLyMinhChung.User.QuanLyUser;
 import QuanLyMinhChung.User.TruongPhong;
@@ -32,14 +33,47 @@ public class Menu {
         QuanLyBoKiemDinh dsBoKiemDinh = new QuanLyBoKiemDinh();
         dsBoKiemDinh.addBoKiemDinh(a);
 
-        YeuCau b = new TieuChuan("4 kỹ năng","speaking,writing,reading,listening");
-        YeuCau c = new TieuChi("speaking","trên 6.5", (TieuChuan) b);
-        QuanLyYeuCau dsYeuCau = new QuanLyYeuCau();
-        dsYeuCau.addYeuCau(b,c);
 
-        MinhChung d = new MinhChung("Điểm số","TPHCM","19/4/2023");
+        //hard code Tieu Chi Yeu Cau Tieu Chuan
+        //=====================================================================================================//
+        YeuCau tieuChuanIelts = new TieuChuan("4 kỹ năng","speaking,writing,reading,listening");
+        YeuCau tieuChiItels  = new TieuChi("speaking","trên 6.5", (TieuChuan) tieuChuanIelts);
+
+        YeuCau tieuChuanToiec = new TieuChuan("2 kỹ năng","speaking , reading");
+        YeuCau tieuChiToiec = new TieuChi("reading","350point",(TieuChuan) tieuChuanToiec);
+
+        YeuCau tieuChuanApplication = new TieuChuan("Tốt nghiệp","Giỏi , Khá , kỹ năng mềm");
+        YeuCau tieuChiApplication = new TieuChi("kỹ năng mềm","GPA 6.5",(TieuChuan)tieuChuanApplication);
+
+        YeuCau tieuChuanUpSalary = new TieuChuan("Thành công 3 dự án lớn","Kỹ năng , giấy tờ , báo cáo");
+        YeuCau tieuChiUpSalary = new TieuChi("báo cáo","thuyết phục đề tài mới",(TieuChuan)tieuChuanUpSalary);
+        YeuCau tieuChuanPhongCachNhaGiao = new TieuChuan("Bản đánh giá đảng viên cuối năm","Phiếu đánh giá đảng viên , Ảnh Giấy khen , báo cáo");
+        YeuCau tieuChiPhongCachNhaGiao = new TieuChi("Phong cách nhà giáo","thuyết phục đề tài mới",(TieuChuan)tieuChuanPhongCachNhaGiao);
+
+
+        QuanLyYeuCau dsYeuCau = new QuanLyYeuCau();
+        dsYeuCau.addYeuCau(tieuChuanIelts,tieuChiItels,tieuChuanToiec,tieuChiToiec,tieuChuanApplication,tieuChiApplication,tieuChuanUpSalary,tieuChiUpSalary,tieuChuanPhongCachNhaGiao,tieuChiPhongCachNhaGiao);
+        //=====================================================================================================//
+        // hard code MinhChung
+        MinhChung minhChunDiemSo = new MinhChung("Điểm số","TPHCM","19/4/2023");
+        MinhChung minhChungĐanhGiaGiangVien = new MinhChung("Trình Độ","Bộ giáo dục","20/8/2018");
+        MinhChung minhChungUuTien = new MinhChung("ƯU TIÊN TRONG TUYỂN SINH NĂM 2023","Bộ Giáo dục và Đào tạo" , "22/2/2020");
+        MinhChung minhChungHoTro = new MinhChung("Kết quả học tập rèn luyện của học sinh","Bộ giáo dục","20/04/2018");
+        MinhChung minhChungSuDungCongTheThongTin = new MinhChung("Chứng chỉ Ngoại ngữ","Đại Học Mở","29/01/2016");
+        MinhChung minhChungVanHoaNhaTruong = new MinhChung("Giấy chứng giáo viên dạy giỏi","THPT Nguyễn Công Trứ","12/07/2000");
+        MinhChung minhChungPhatTrienChuyenMon = new MinhChung("Kế hoạch BDTX","Bộ Giáo dục và Đào tạo","20/4/2019");
         QuanLiMinhChung dsMinhChung = new QuanLiMinhChung();
-        dsMinhChung.addMinhChung(d);
+        dsMinhChung.addMinhChung(minhChunDiemSo,minhChungĐanhGiaGiangVien,minhChungUuTien,minhChungHoTro,minhChungSuDungCongTheThongTin,minhChungVanHoaNhaTruong,minhChungPhatTrienChuyenMon);
+        //=====================================================================================================//
+        // Hard Code Phong Ban
+        PhongBan phongBanDiemSo = new PhongBan("Quan Lí điểm số","TPHCM");
+        PhongBan phongBanUuTien = new PhongBan("Cung cấp và xác minh ưu Tiên","Bộ giáo Dục");
+        PhongBan phongBanDieuHanhChuyenMon = new PhongBan("Đánh giá chuyên môn","Bộ Giaó Dục Hà Nội");
+        PhongBan phongBanCapQuyenGiayTo = new PhongBan("Xác nhận xấy tờ ","Công Chứng Gò Vấp");
+        PhongBan phongBanHoTroSinhVien = new PhongBan("Hỗ trợ sinh viên và học sinh ","Bộ giáo dục");
+        PhongBan phongBanDanhGia = new PhongBan("Đánh giá chất lượng nhân viên","Nhà Nước");
+        PhongBan phongBanThamQuyen = new PhongBan("Thẩm quyển các chức năng","Bộ Công An");
+
         //Tạo đối tượng
         Admin admin = new Admin();
         User u1 = new GiangVien("AnTien","123");
