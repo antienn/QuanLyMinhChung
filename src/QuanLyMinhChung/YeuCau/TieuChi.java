@@ -17,34 +17,19 @@ public class TieuChi extends YeuCau {
 
 
     {
-        setMaYeuCau(String.format("TChi%05d", ++countTieuChi));
+        super.maYeuCau = String.format("TChi%05d", ++countTieuChi);
     }
 
     public TieuChi(String tenYeuCau, String noiDung, TieuChuan tieuChuan) {
         super(null, tenYeuCau, noiDung);
         this.thuocTieuChuan = tieuChuan;
     }
-    // ham Xoa minh Chung
-    public void xoaMinhChung(TieuChi tieuChi, String tenMinhChungCanXoa) {
-        ArrayList<MinhChung> dsMinhChung = tieuChi.getDsMinhChung();
-
-        for (int i = 0; i < dsMinhChung.size(); i++) {
-            MinhChung mc = dsMinhChung.get(i);
-            if (mc.getTenMinhChung().equals(tenMinhChungCanXoa)) {
-                dsMinhChung.remove(i);
-                System.out.println("Đã xoá minh chứng " + tenMinhChungCanXoa + " khỏi tiêu chí " + tieuChi.getTenYeuCau());
-                return;
-            }
-        }
-
-        System.out.println("Không tìm thấy minh chứng " + tenMinhChungCanXoa + " trong tiêu chí " + tieuChi.getTenYeuCau());
-    }
 
     public void sapXepMinhChungNgayBanHanh() {
         this.dsMinhChung.sort(Comparator.comparing(MinhChung::getNgayBanHanh));
     }
-
-    public void displayTieuChi() {
+    @Override
+    public void display(){
         // Hiển thị Tiêu chí
         System.out.printf("| %-10s | %-5s |", getMaYeuCau(), getTenYeuCau());
         System.out.printf(" %-10s |\n", getNoiDung());

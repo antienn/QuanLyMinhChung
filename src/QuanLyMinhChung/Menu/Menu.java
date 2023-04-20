@@ -300,10 +300,13 @@ public class Menu {
                                     dsYeuCau.displayTieuChuan();
                                     do {
                                         try {
-                                            System.out.println("Mời bạn nhập tên tiêu chuẩn bạn muốn tạo");
+                                            System.out.println("Mời bạn nhập tên tiêu chuẩn bạn muốn thêm");
                                             String tmptcthem = CauHinh.sc.nextLine();
                                             if(dsYeuCau.findTieuChuanByName(tmptcthem)!=null) {
-                                                dsYeuCau.addYeuCau(new TieuChi(tmptchit,tmptchind, dsYeuCau.findTieuChuanByName(tmptcthem)));
+                                                TieuChuan tc = dsYeuCau.findTieuChuanByName(tmptcthem);
+                                                TieuChi tch = new TieuChi(tmptchit,tmptchind,tc);
+                                                tc.addTieuChi(tch);
+                                                dsYeuCau.addYeuCau(tch);
                                                 System.out.println("Đã thêm thành công");
                                                 break;
                                             }
@@ -362,7 +365,7 @@ public class Menu {
                 }else{
                     GiangVien tmpGiangVien = (GiangVien) tmp;
                     System.out.println("Danh sách Tiêu Chí hiện tại:");
-                    tmpGiangVien.getQhgv().tieuChiByGiangVien(tmpGiangVien.getQhgv()); // Hiển thị danh sách Tiêu Chí của giảng viên hiện tại
+                    tmpGiangVien.getQhgv().show(); // Hiển thị danh sách Tiêu Chí của giảng viên hiện tại
                     System.out.println("Mời bạn nhập tên Tiêu Chí bạn muốn chỉnh sửa: ");
 
                     TieuChi tc;
@@ -412,7 +415,7 @@ public class Menu {
                                     tc.addMinhChung(tmpMinhChung);
                                     System.out.println("Thêm thành công!");
                                     System.out.println("Danh Sách hiện tại : ");
-                                    tc.displayTieuChi();
+                                    tc.display();
                                 }else{
                                     System.out.printf("Không thể thêm vào %s",tc.getTenYeuCau());
                                 }

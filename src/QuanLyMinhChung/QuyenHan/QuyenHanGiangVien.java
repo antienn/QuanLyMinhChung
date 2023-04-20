@@ -8,7 +8,7 @@ import java.util.List;
 
 public class QuyenHanGiangVien {
     private final List<TieuChi> dsTieuChiDuocChinhSua = new ArrayList<>();
-    private boolean duocBienSoanTieuChi = false;
+    private boolean duocBienSoanTieuChi;
     public QuyenHanGiangVien(){
         this.duocBienSoanTieuChi = false;
     }
@@ -17,9 +17,6 @@ public class QuyenHanGiangVien {
         return dsTieuChiDuocChinhSua;
     }
 
-    public void show(){
-        this.dsTieuChiDuocChinhSua.forEach(x -> System.out.println(x.getTenYeuCau()));
-    }
     public TieuChi findTieuChi(String name){
         for( TieuChi tc : dsTieuChiDuocChinhSua){
             if(tc.getTenYeuCau().equals(name)){
@@ -28,13 +25,13 @@ public class QuyenHanGiangVien {
         }
         return null;
     }
-    public void tieuChiByGiangVien(QuyenHanGiangVien qhgv) {
-        if(qhgv.dsTieuChiDuocChinhSua.isEmpty()){
+    public void show() {
+        if(this.dsTieuChiDuocChinhSua.isEmpty()){
             System.out.println("Danh Sách quản lý hiện tại chưa có :");
         }
         else {
             System.out.printf("%-20s | %-20s | %s\n", "Mã tiêu chí", "Tên tiêu chí", "Nội dung tiêu chí");
-            for (TieuChi tc : qhgv.getDsTieuChiDuocChinhSua()) {
+            for (TieuChi tc : this.getDsTieuChiDuocChinhSua()) {
                 System.out.printf("%-20s | %-20s | %s\n", tc.getMaYeuCau(), tc.getTenYeuCau(), tc.getNoiDung());
             }
             System.out.println();

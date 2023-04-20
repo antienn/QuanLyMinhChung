@@ -22,18 +22,6 @@ public abstract class User {
         System.out.printf("%-10s | %-20s | %-20s", this.id, this.name, this.getClass().getSimpleName());
     }
 
-
-
-    public static User createUser(String name,String pass,String role){
-        if(role.equals("GiangVien")){
-            return new GiangVien(name,pass);
-        }
-        if(role.equals("TruongPhong")){
-            return new TruongPhong(name,pass);
-        }
-        return null;
-    }
-
     public String getId() {
         return id;
     }

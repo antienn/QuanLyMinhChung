@@ -9,7 +9,7 @@ public class TieuChuan extends YeuCau {
     private static int contTieuChuan;
     private ArrayList<TieuChi> dsTieuChi;
     {
-        setMaYeuCau(String.format("TC%05d", ++contTieuChuan));
+        super.maYeuCau = String.format("TC%05d", ++contTieuChuan);
     }
     public TieuChuan( String tenYeuCau, String noiDung) {
         super(null, tenYeuCau, noiDung);

@@ -27,18 +27,6 @@ public class GiangVien extends User {
             System.out.println();
         }
     }
-    public void tieuChiByGiangVien(){
-
-        System.out.printf("%-20s | %-20s | %s\n", "Mã tiêu chí", "Tên tiêu chí", "Nội dung tiêu chí");
-        for (YeuCau yc : qhgv.getDsTieuChiDuocChinhSua()) {
-            System.out.printf("%-20s | %-20s | %s\n", yc.getMaYeuCau(), yc.getTenYeuCau(), yc.getNoiDung());
-        }
-        System.out.println();
-    }
-
-
-
-
 
     public QuyenHanGiangVien getQhgv() {
         return qhgv;

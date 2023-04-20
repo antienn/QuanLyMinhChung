@@ -87,9 +87,6 @@ public class QuanLiMinhChung {
         this.danhsachMinChung = danhsachMinChung;
     }
 
-    public void display() {
-        this.danhsachMinChung.forEach(h -> h.display());
-    }
 
 
     //Ham them Minh CHung
