@@ -54,6 +54,12 @@ public class Menu {
 
         QuanLyYeuCau dsYeuCau = new QuanLyYeuCau();
         dsYeuCau.addYeuCau(tieuChuanIelts,tieuChiItels,tieuChuanToiec,tieuChiToiec,tieuChuanApplication,tieuChiApplication,tieuChuanUpSalary,tieuChiUpSalary,tieuChuanPhongCachNhaGiao,tieuChiPhongCachNhaGiao);
+        // hard code TieuChuan
+        TieuChuan tieuChuanPhamChatNhaGiao = new TieuChuan("Phẩm chất nhà giáo:","Mức đạt Thực hiện nghiêm túc các quy định về đạo đức nhà giáo");
+        TieuChuan tieuChuanChuyenMon = new TieuChuan("Phát triển chuyên môn, nghiệp vụ"," Xây dựng kế hoạch dạy học và giáo dục theo hướng phát triển phẩm chất, năng lực học sinh");
+        TieuChuan tieuChuanXayDungMoiTruong = new TieuChuan("Xây dựng môi trường giáo dục","Xây dựng văn hóa nhà trường");
+        TieuChuan tieuChuanSuDungNgoaiNgu = new TieuChuan("Sử dụng ngoại ngữ hoặc tiếng dân tộc","ứng dụng công nghệ thông tin, khai thác và sử dụng thiết bị công nghệ trong dạy học, giáo dục");
+        TieuChuan tieuChuanHoTro = new TieuChuan("Hỗ trợ học sinh viên","Xét học bổng");
         //=====================================================================================================//
         // hard code MinhChung
         MinhChung minhChunDiemSo = new MinhChung("Điểm số","TPHCM","19/4/2023");
@@ -65,6 +71,16 @@ public class Menu {
         MinhChung minhChungPhatTrienChuyenMon = new MinhChung("Kế hoạch BDTX","Bộ Giáo dục và Đào tạo","20/4/2019");
         QuanLiMinhChung dsMinhChung = new QuanLiMinhChung();
         dsMinhChung.addMinhChung(minhChunDiemSo,minhChungĐanhGiaGiangVien,minhChungUuTien,minhChungHoTro,minhChungSuDungCongTheThongTin,minhChungVanHoaNhaTruong,minhChungPhatTrienChuyenMon);
+
+        // hard code TieuChi
+        TieuChi tieuChiSuDungNgoaiNgu = new TieuChi("Sử dụng Song Ngữ","Ngôn Ngữ",tieuChuanSuDungNgoaiNgu);
+        TieuChi tieuChiChuyenMon = new TieuChi("Phát triển chuyên môn bản thân","Tư vấn và hỗ trợ học sinh",tieuChuanChuyenMon);
+        TieuChi tieuChiDiemSo = new TieuChi("Phát triển điểm số học sinh","Cải cách quá trình dạy",tieuChuanXayDungMoiTruong);
+        TieuChi tieuChiXoaBong = new TieuChi("Phát bổng ","Loại Giỏi",tieuChuanHoTro);
+        TieuChi tieuChiBongSinhVienNgheo = new TieuChi("Phát bổng sinh viên","Khó khăn",tieuChuanHoTro);
+
+        //hard code
+        //
         //=====================================================================================================//
         // Hard Code Phong Ban
         PhongBan phongBanDiemSo = new PhongBan("Quan Lí điểm số","TPHCM");
@@ -391,7 +407,7 @@ public class Menu {
                                 System.out.println(tc.getTenYeuCau());
                                 tc.showMinhChung();
                                 System.out.println("danh sách minh chứng:");
-                                dsMinhChung.display();
+                                dsMinhChung.displayMinhChung();
                                 System.out.println("Mời bạn nhập tên minh chứng bạn muốn thêm:");
                                 MinhChung tmpMinhChung = dsMinhChung.tonTai(CauHinh.sc.nextLine());
                                 if(!tc.tonTai(tmpMinhChung)){

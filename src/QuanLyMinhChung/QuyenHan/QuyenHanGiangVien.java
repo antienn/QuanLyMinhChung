@@ -29,11 +29,16 @@ public class QuyenHanGiangVien {
         return null;
     }
     public void tieuChiByGiangVien(QuyenHanGiangVien qhgv) {
-        System.out.printf("%-20s | %-20s | %s\n", "Mã tiêu chí", "Tên tiêu chí", "Nội dung tiêu chí");
-        for (TieuChi tc : qhgv.getDsTieuChiDuocChinhSua()) {
-            System.out.printf("%-20s | %-20s | %s\n", tc.getMaYeuCau(), tc.getTenYeuCau(), tc.getNoiDung());
+        if(qhgv.dsTieuChiDuocChinhSua.isEmpty()){
+            System.out.println("Danh Sách quản lý hiện tại chưa có :");
         }
-        System.out.println();
+        else {
+            System.out.printf("%-20s | %-20s | %s\n", "Mã tiêu chí", "Tên tiêu chí", "Nội dung tiêu chí");
+            for (TieuChi tc : qhgv.getDsTieuChiDuocChinhSua()) {
+                System.out.printf("%-20s | %-20s | %s\n", tc.getMaYeuCau(), tc.getTenYeuCau(), tc.getNoiDung());
+            }
+            System.out.println();
+        }
     }
 
     public void addTieuChi(TieuChi tc){
