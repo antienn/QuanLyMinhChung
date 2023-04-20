@@ -28,6 +28,13 @@ public class QuyenHanGiangVien {
         }
         return null;
     }
+    public void tieuChiByGiangVien(QuyenHanGiangVien qhgv) {
+        System.out.printf("%-20s | %-20s | %s\n", "Mã tiêu chí", "Tên tiêu chí", "Nội dung tiêu chí");
+        for (TieuChi tc : qhgv.getDsTieuChiDuocChinhSua()) {
+            System.out.printf("%-20s | %-20s | %s\n", tc.getMaYeuCau(), tc.getTenYeuCau(), tc.getNoiDung());
+        }
+        System.out.println();
+    }
 
     public void addTieuChi(TieuChi tc){
         this.dsTieuChiDuocChinhSua.add(tc);

@@ -24,11 +24,10 @@ public class Main {
        QuanLiMinhChung quanLiMinhChung = new QuanLiMinhChung();
        cc.ghiNhanCungCap(phongBan1,minhChung1,"10/11/2000","20/10/2000");
        c2.ghiNhanCungCap(phongBan2,minhChung2,"20/11/2000","20/10/2000");
-       System.out.println(minhChung2.getCungCapMinhChung().size());
-       quanLiMinhChung.addMinhChung(minhChung1,minhChung2);
+       quanLiMinhChung.searchMinhChungByPhongBan("PhongBan1");
        quanLiMinhChung.displayMinhChung();
-       quanLiMinhChung.xepNgayTaoMinhChung();
-       quanLiMinhChung.displayMinhChung();
+
+
 
     }
 }

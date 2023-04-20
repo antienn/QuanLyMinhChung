@@ -3,6 +3,7 @@ package QuanLyMinhChung.Menu;
 import QuanLyMinhChung.BoKiemDinh.BoKiemDinh;
 import QuanLyMinhChung.BoKiemDinh.QuanLyBoKiemDinh;
 import QuanLyMinhChung.CauHinh.CauHinh;
+import QuanLyMinhChung.CungCap.CungCap;
 import QuanLyMinhChung.MinhChung.MinhChung;
 import QuanLyMinhChung.MinhChung.QuanLiMinhChung;
 import QuanLyMinhChung.PhongBan.PhongBan;
@@ -51,7 +52,6 @@ public class Menu {
         YeuCau tieuChuanPhongCachNhaGiao = new TieuChuan("Bản đánh giá đảng viên cuối năm","Phiếu đánh giá đảng viên , Ảnh Giấy khen , báo cáo");
         YeuCau tieuChiPhongCachNhaGiao = new TieuChi("Phong cách nhà giáo","thuyết phục đề tài mới",(TieuChuan)tieuChuanPhongCachNhaGiao);
 
-
         QuanLyYeuCau dsYeuCau = new QuanLyYeuCau();
         dsYeuCau.addYeuCau(tieuChuanIelts,tieuChiItels,tieuChuanToiec,tieuChiToiec,tieuChuanApplication,tieuChiApplication,tieuChuanUpSalary,tieuChiUpSalary,tieuChuanPhongCachNhaGiao,tieuChiPhongCachNhaGiao);
         //=====================================================================================================//
@@ -74,7 +74,10 @@ public class Menu {
         PhongBan phongBanHoTroSinhVien = new PhongBan("Hỗ trợ sinh viên","Bộ giáo dục");
         PhongBan phongBanDanhGia = new PhongBan("Đánh giá chất lượng nhân viên","Nhà Nước");
         PhongBan phongBanThamQuyen = new PhongBan("Thẩm quyển các chức năng","Bộ Công An");
-
+        // hard code CungCap
+        CungCap cungCapDiemSo = new CungCap();
+        cungCapDiemSo.ghiNhanCungCap(phongBanDiemSo,minhChunDiemSo,"20/8/2018","19/02/2018");
+        cungCapDiemSo.ghiNhanCungCap(phongBanUuTien,minhChungHoTro,"20/8/2020","20/05/2023");
         //Tạo đối tượng
         Admin admin = new Admin();
         User u1 = new GiangVien("AnTien","123");
@@ -268,7 +271,7 @@ public class Menu {
                                 case 2:
                                     System.out.println("Mời bạn nhập tên tiêu chuẩn bạn muốn tạo : ");
                                     String tmptct = CauHinh.sc.nextLine();
-                                    System.out.printf("Mời bạn nhập nội dung tiêu chuẩn :  %s",tmptct);
+                                    System.out.printf("Mời bạn nhập nội dung tiêu chuẩn %s :  ",tmptct);
                                     String tmptcnd = CauHinh.sc.nextLine();
                                     dsYeuCau.addYeuCau(new TieuChuan(tmptct,tmptcnd));
                                     System.out.println("Đã thêm thành công");
@@ -276,18 +279,27 @@ public class Menu {
                                 case 3:
                                     System.out.println("Mời bạn nhập tên tiêu chí bạn muốn tạo : ");
                                     String tmptchit = CauHinh.sc.nextLine();
-                                    System.out.printf("Mời bạn nhập nội dung tiêu chí :  %s",tmptchit);
+                                    System.out.printf("Mời bạn nhập nội dung tiêu chí  %s : ",tmptchit);
                                     String tmptchind = CauHinh.sc.nextLine();
-                                    do{
-                                        dsYeuCau.displayTieuChuan();
-                                        System.out.println("Mời bạn nhập tên tiêu chuẩn bạn muốn tạo");
-                                        String tmptcthem = CauHinh.sc.nextLine();
-                                        if(dsYeuCau.findTieuChuanByName(tmptcthem)!=null) {
-                                            dsYeuCau.addYeuCau(new TieuChi(tmptchit,tmptchind, dsYeuCau.findTieuChuanByName(tmptcthem)));
-                                            System.out.println("Đã thêm thành công");
-                                            break;
+                                    dsYeuCau.displayTieuChuan();
+                                    do {
+                                        try {
+                                            System.out.println("Mời bạn nhập tên tiêu chuẩn bạn muốn tạo");
+                                            String tmptcthem = CauHinh.sc.nextLine();
+                                            if(dsYeuCau.findTieuChuanByName(tmptcthem)!=null) {
+                                                dsYeuCau.addYeuCau(new TieuChi(tmptchit,tmptchind, dsYeuCau.findTieuChuanByName(tmptcthem)));
+                                                System.out.println("Đã thêm thành công");
+                                                break;
+                                            }
+                                            else {
+                                                System.out.println("Kkông tìm thấy ! Vui Lòng Nhập Lại");
+                                            }
+
+                                        } catch (Exception e) {
+                                            System.out.println("Đã xảy ra lỗi. Vui lòng thử lại.");
                                         }
-                                    }while(true);
+                                    } while(true);
+
                                     break;
                                 case 4:
                                     dsUser.dsGiangVien().forEach(GiangVien::display);
@@ -333,8 +345,10 @@ public class Menu {
 
                 }else{
                     GiangVien tmpGiangVien = (GiangVien) tmp;
-                    ((GiangVien) tmp).getQhgv().show();
-                    System.out.println("Mời bạn nhập tên tiêu chí bạn muốn chỉnh sửa : ");
+                    System.out.println("Danh sách Tiêu Chí hiện tại:");
+                    tmpGiangVien.getQhgv().tieuChiByGiangVien(tmpGiangVien.getQhgv()); // Hiển thị danh sách Tiêu Chí của giảng viên hiện tại
+                    System.out.println("Mời bạn nhập tên Tiêu Chí bạn muốn chỉnh sửa: ");
+
                     TieuChi tc;
                     do{
                         String tmptchit = CauHinh.sc.nextLine();

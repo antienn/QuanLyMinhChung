@@ -20,13 +20,22 @@ public class GiangVien extends User {
             System.out.print("Không có tiêu chí nào được quản lí.\n");
         } else {
             System.out.printf(" \n Số lượng tiêu chí: %d\n", qhgv.getDsTieuChiDuocChinhSua().size());
-            System.out.printf("%-20s | %-20s | %s\n", "Mã tiêu chí", "Tên tiêu chí", "Nội dung tiêu chí");
+            System.out.printf("| %-20s | %-20s | %s\n", "Mã tiêu chí", "Tên tiêu chí", "Nội dung tiêu chí");
             qhgv.getDsTieuChiDuocChinhSua().forEach(tieuChi -> {
-                System.out.printf("%-20s | %-20s | %s\n", tieuChi.getMaYeuCau(), tieuChi.getTenYeuCau(), tieuChi.getNoiDung());
+                System.out.printf("| %-20s | %-20s | %s\n", tieuChi.getMaYeuCau(), tieuChi.getTenYeuCau(), tieuChi.getNoiDung());
             });
             System.out.println();
         }
     }
+    public void tieuChiByGiangVien(){
+
+        System.out.printf("%-20s | %-20s | %s\n", "Mã tiêu chí", "Tên tiêu chí", "Nội dung tiêu chí");
+        for (YeuCau yc : qhgv.getDsTieuChiDuocChinhSua()) {
+            System.out.printf("%-20s | %-20s | %s\n", yc.getMaYeuCau(), yc.getTenYeuCau(), yc.getNoiDung());
+        }
+        System.out.println();
+    }
+
 
 
 

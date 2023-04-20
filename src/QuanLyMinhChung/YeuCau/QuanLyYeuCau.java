@@ -12,21 +12,30 @@ public class QuanLyYeuCau {
     public void addYeuCau(YeuCau ...dsYeuCau){
         this.ds.addAll(Arrays.asList(dsYeuCau));
     }
-    public void displayTieuChi(){
+    public void displayTieuChi() {
+        String format = "| %-10s | %-30s | %-50s |%n";
+        System.out.format("+------------+--------------------------------+----------------------------------------------------+%n");
+        System.out.format(format, "Mã Tiêu chí", "Tên Tiêu chí", "Nội dung Tiêu chí");
+        System.out.format("+------------+--------------------------------+----------------------------------------------------+%n");
         for(YeuCau yc : ds){
             if(yc.getClass().getSimpleName().equals("TieuChi")){
-                System.out.printf("\nMa Tieu chi : %s\n", yc.maYeuCau );
-                System.out.printf("Ten Tieu Chi : %s\n", yc.tenYeuCau );
-                System.out.printf("Noi Tieu Chi : %s\n", yc.noiDung );
+                System.out.format(format, yc.maYeuCau, yc.tenYeuCau, yc.noiDung);
             }
         }
+        System.out.format("+------------+--------------------------------+----------------------------------------------------+%n");
     }
+
     public void displayTieuChuan(){
+        String format = "| %-10s | %-30s | %-50s |%n";
+        System.out.format("+------------+--------------------------------+----------------------------------------------------+%n");
+        System.out.format(format, "Mã Tiêu Chuẩn", "Tên Tiêu Chuẩn", "Nội dung Tiêu Chuẩn");
+        System.out.format("+------------+--------------------------------+----------------------------------------------------+%n");
         for(YeuCau yc : ds){
             if(yc.getClass().getSimpleName().equals("TieuChuan")){
-                yc.display();
+                System.out.format(format, yc.maYeuCau, yc.tenYeuCau, yc.noiDung);
             }
         }
+        System.out.format("+------------+--------------------------------+----------------------------------------------------+%n");
     }
     public TieuChuan findTieuChuanByName(String name){
         for(YeuCau yc : ds){
