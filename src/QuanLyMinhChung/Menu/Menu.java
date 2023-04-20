@@ -18,6 +18,7 @@ import QuanLyMinhChung.admin.Admin;
 
 import java.text.ParseException;
 import java.util.Date;
+import java.util.NoSuchElementException;
 
 
 public class Menu {
@@ -155,23 +156,68 @@ public class Menu {
                             }
                         }
                         case 4 -> {
+                            String tmpName;
+                            boolean validName = false;
                             System.out.println("Danh sách Minh Chứng Hiện có : ");
                             dsMinhChung.displayMinhChung();
                             System.out.println("===============================");
-                            System.out.print("Bạn muốn biết thông tin minh chứng theo tên: ");
-                            String tmpName = CauHinh.sc.nextLine();
-                            dsMinhChung.searchMinhChung(tmpName).forEach(MinhChung::display);
+                            do {
+                               try{
+                                   System.out.print("Bạn muốn biết thông tin minh chứng theo tên: ");
+                                   tmpName = CauHinh.sc.nextLine();
+                                   if (dsMinhChung.searchMinhChung(tmpName).isEmpty()) {
+                                       System.out.println("Tên không hợp lệ. Vui lòng nhập lại.");
+                                   } else {
+                                       validName = true;
+                                       dsMinhChung.searchMinhChung(tmpName).forEach(MinhChung::display);
+                                   }
+                               }catch (Exception exception){
+                                   System.out.println("Tên không hợp lệ. Vui lòng nhập lại.");
+                               }
+
+                            } while (!validName);
+
                         }
                         case 5 -> {
-                            System.out.print("Bạn muốn biết thông tin minh chứng theo cơ quan: ");
-                            String tmpCoQuan = CauHinh.sc.nextLine();
-                            dsMinhChung.searchMinhChungNoiBanHanh(tmpCoQuan).forEach(MinhChung::display);
+                            boolean isValidInput = false;
+                            System.out.println("Danh sách Minh Chứng Hiện có : ");
+                            dsMinhChung.displayMinhChung();
+                            System.out.println("===============================");
+                            do {
+                                try {
+                                    System.out.print("Bạn muốn biết thông tin minh chứng theo cơ quan: ");
+                                    String tmpCoQuan = CauHinh.sc.nextLine();
+                                    if (dsMinhChung.searchMinhChungNoiBanHanh(tmpCoQuan).isEmpty()){
+                                        System.out.println("Tên cơ quan  không hợp lệ. Vui lòng nhập lại.");
+                                    }else {
+                                        dsMinhChung.searchMinhChungNoiBanHanh(tmpCoQuan).forEach(MinhChung::display);
+                                        isValidInput = true;
+                                    }
+
+                                } catch (Exception e) {
+                                    System.out.println("Tên cơ quan  không hợp lệ. Vui lòng nhập lại.");
+                                }
+
+                            } while (!isValidInput);
+
                         }
                         case 6 -> {
-                            System.out.print("Bạn muốn biết thông tin minh chứng theo ngày ban hành: ");
-                            String tmpStringNgayBanHanh = CauHinh.sc.nextLine();
-                            Date ngayBanHanh = CauHinh.f.parse(tmpStringNgayBanHanh);
-                            dsMinhChung.searchMinhChung(ngayBanHanh).forEach(MinhChung::display);
+                            do {
+                                System.out.println("Danh sách Minh Chứng Hiện có : ");
+                                dsMinhChung.displayMinhChung();
+                                System.out.println("===============================");
+                                System.out.print("Bạn muốn biết thông tin minh chứng theo ngày ban hành: ");
+                                String tmpStringNgayBanHanh = CauHinh.sc.nextLine();
+                                try {
+                                    Date ngayBanHanh = CauHinh.f.parse(tmpStringNgayBanHanh);
+                                    dsMinhChung.searchMinhChung(ngayBanHanh).forEach(MinhChung::display);
+                                    break; // thoát khỏi vòng lặp nếu ngày hợp lệ
+                                } catch (ParseException exception ) {
+                                    System.out.println("Ngày không hợp lệ. Vui lòng nhập lại.");
+                                }
+                            } while (true);
+
+
                         }
                         case 7 -> {
 
