@@ -21,7 +21,14 @@ public class QuanLiMinhChung {
     // Ham hien thi MinhChung
     // ghi de toString
     public void displayMinhChung() {
-        this.danhsachMinChung.forEach(x -> System.out.println(x));
+        boolean headerDisplayed = false;
+        for (MinhChung mc : this.danhsachMinChung) {
+            if (!headerDisplayed) {
+                System.out.println(String.format("%-20s %-30s %-40s %-60s\n", "Mã Minh Chung", "Tên Minh Chung", "Nơi Ban Hành", "Ngày Ban Hành"));
+                headerDisplayed = true;
+            }
+            System.out.println(mc.toString());
+        }
     }
 
     //search Minh Chung theo ten;

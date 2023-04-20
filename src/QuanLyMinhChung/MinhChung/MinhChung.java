@@ -47,15 +47,14 @@ public class MinhChung {
 
     @Override
     public String toString() {
-        return String.format("-Ma Minh Chung : %s\n-Ten Minh Chung : %s\n-Noi Ban Hanh : %s\n-Ngay Ban Hanh :%s\n"
-                , this.maMinhChung, this.tenMinhChung, this.noiBanHanh, CauHinh.f.format(this.ngayBanHanh));
+        StringBuilder sb = new StringBuilder();
+        sb.append(String.format("%-20s %-30s %-40s %-60s\n", this.maMinhChung, this.tenMinhChung, this.noiBanHanh, CauHinh.f.format(this.ngayBanHanh)));
+        return sb.toString();
     }
 
     public void display() {
-        System.out.printf("-Ma Minh Chung : %s\n", this.maMinhChung);
-        System.out.printf("-Ten Minh Chung : %s\n", this.tenMinhChung);
-        System.out.printf("-Noi Ban Hanh : %s\n", this.noiBanHanh);
-        System.out.printf("-Ngay Ban Hanh : %s\n", CauHinh.f.format(this.ngayBanHanh));
+        System.out.format("%-20s %-20s %-20s %-20s\n", "Mã Minh Chung", "Tên Minh Chung", "Nơi Ban Hành", "Ngày Ban Hành");
+        System.out.format("%-20s %-20s %-20s %-20s\n", this.maMinhChung, this.tenMinhChung, this.noiBanHanh, CauHinh.f.format(this.ngayBanHanh));
     }
 
 
