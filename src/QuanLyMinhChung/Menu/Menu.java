@@ -404,8 +404,6 @@ public class Menu {
                                 break;
                             }
                             case 2:
-                                System.out.println(tc.getTenYeuCau());
-                                tc.showMinhChung();
                                 System.out.println("danh sách minh chứng:");
                                 dsMinhChung.displayMinhChung();
                                 System.out.println("Mời bạn nhập tên minh chứng bạn muốn thêm:");
@@ -416,14 +414,17 @@ public class Menu {
                                 }else{
                                     System.out.printf("Không thể thêm vào %s",tc.getTenYeuCau());
                                 }
+                                break;
                             case 3:
+                                System.out.println("danh sách minh chứng:");
+                                dsMinhChung.displayMinhChung();
                                 System.out.print("Nhap ten Minh Chung can xoa : ");
                                 String tpmMinhChung = CauHinh.sc.nextLine();
                                 if (tc.removeMinhChung(tpmMinhChung)){
                                     dsMinhChung.removeMinhChung(tpmMinhChung);
                                     System.out.println("Xoa Minh Chung Thanh cong");
                                 }else{
-                                    System.out.printf("Không tìm thấy minh chứng %s trong %s",tpmMinhChung,tc.getTenYeuCau() );
+                                    System.out.printf("Không tìm thấy minh chứng %s trong %s\n",tpmMinhChung,tc.getTenYeuCau() );
                                 }
                                 break;
                             case 4:
