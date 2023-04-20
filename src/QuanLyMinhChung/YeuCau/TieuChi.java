@@ -46,25 +46,26 @@ public class TieuChi extends YeuCau {
 
     public void displayTieuChi() {
         // Hiển thị Tiêu chí
-        System.out.printf("| %-10s | %-5s |\n", getMaYeuCau(), getTenYeuCau());
-        System.out.printf("| %-10s |\n", getNoiDung());
+        System.out.printf("| %-10s | %-5s |", getMaYeuCau(), getTenYeuCau());
+        System.out.printf(" %-10s |\n", getNoiDung());
 
         // Hiển thị danh sách Minh chứng
-        System.out.print("Danh sách Minh chứng \n");
+        System.out.println("Danh sách Minh chứng");
+        System.out.printf("| %-3s | %-10s | %-20s | %-15s | %-20s |\n",
+                "STT", "Mã minh chứng", "Tên minh chứng", "Ngày ban hành", "Nơi ban hành");
         int index = 1;
-        if(dsMinhChung.size()==0){
+        if (dsMinhChung.size() == 0) {
             System.out.println("Không có danh sách minh chứng ");
-        }
-        else{
+        } else {
             for (MinhChung minhChung : dsMinhChung) {
-                System.out.printf("%d. %-10s - %-20s - %-15s - %-20s\n",
+                System.out.printf("| %-3d | %-10s | %-20s | %-15s | %-20s |\n",
                         index++, minhChung.getMaMinhChung(),
                         minhChung.getTenMinhChung(),
                         CauHinh.f.format(minhChung.getNgayBanHanh()), minhChung.getNoiBanHanh());
             }
         }
-
     }
+
 
     //Kiem Tra Minh Chung da duoc them
     public boolean isCheckMinhChungAdd(MinhChung... minhChungs) {
@@ -81,11 +82,7 @@ public class TieuChi extends YeuCau {
     }
     // ham xoa minh chung theo ten
     public boolean removeMinhChung(String kw) {
-        this.dsMinhChung.removeIf(x ->{
-            x.getTenMinhChung().contains(kw);
-            return true;
-        });
-        return false;
+        return this.dsMinhChung.removeIf(x -> x.getTenMinhChung().contains(kw));
     }
     public void showMinhChung(){
         dsMinhChung.forEach(e->e.display());

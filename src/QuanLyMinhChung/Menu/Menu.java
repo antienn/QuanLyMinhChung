@@ -411,13 +411,13 @@ public class Menu {
                                 if(!tc.tonTai(tmpMinhChung)){
                                     tc.addMinhChung(tmpMinhChung);
                                     System.out.println("Thêm thành công!");
+                                    System.out.println("Danh Sách hiện tại : ");
+                                    tc.displayTieuChi();
                                 }else{
                                     System.out.printf("Không thể thêm vào %s",tc.getTenYeuCau());
                                 }
                                 break;
                             case 3:
-                                System.out.println("danh sách minh chứng:");
-                                dsMinhChung.displayMinhChung();
                                 System.out.print("Nhap ten Minh Chung can xoa : ");
                                 String tpmMinhChung = CauHinh.sc.nextLine();
                                 if (tc.removeMinhChung(tpmMinhChung)){
