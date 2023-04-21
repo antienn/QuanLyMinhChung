@@ -239,7 +239,6 @@ public class Menu {
 
                         }
                         case 7 -> {
-
                         }
                         case 8 -> System.out.println("Đã đăng suất thành công");
                         default -> System.out.println("Lỗi truy cập");
@@ -407,17 +406,20 @@ public class Menu {
                                 break;
                             }
                             case 2:
-                                System.out.println("danh sách minh chứng:");
+                                System.out.println("Danh sách minh chứng:");
+                                dsMinhChung.xepNgayTaoMinhChung();
                                 dsMinhChung.displayMinhChung();
                                 System.out.println("Mời bạn nhập tên minh chứng bạn muốn thêm:");
                                 MinhChung tmpMinhChung = dsMinhChung.tonTai(CauHinh.sc.nextLine());
                                 if(!tc.tonTai(tmpMinhChung)){
                                     tc.addMinhChung(tmpMinhChung);
                                     System.out.println("Thêm thành công!");
+                                    System.out.println("=======================================\n");
                                     System.out.println("Danh Sách hiện tại : ");
-                                    tc.display();
+                                    dsMinhChung.xepNgayTaoMinhChung();
+                                    dsMinhChung.displayMinhChung();
                                 }else{
-                                    System.out.printf("Không thể thêm vào %s",tc.getTenYeuCau());
+                                    System.out.printf("Minh chứng đã tồn tại trong  %s",tc.getTenYeuCau());
                                 }
                                 break;
                             case 3:
@@ -426,6 +428,10 @@ public class Menu {
                                 if (tc.removeMinhChung(tpmMinhChung)){
                                     dsMinhChung.removeMinhChung(tpmMinhChung);
                                     System.out.println("Xoa Minh Chung Thanh cong");
+                                    System.out.println("Thêm thành công!");
+                                    System.out.println("Danh Sách hiện tại : ");
+                                    tc.sapXepMinhChungNgayBanHanh();
+                                    tc.display();
                                 }else{
                                     System.out.printf("Không tìm thấy minh chứng %s trong %s\n",tpmMinhChung,tc.getTenYeuCau() );
                                 }
