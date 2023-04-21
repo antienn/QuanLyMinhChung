@@ -53,9 +53,9 @@ public class Menu {
         dsYeuCau.addYeuCau(tieuChuanIelts,tieuChiItels,tieuChuanToiec,tieuChiToiec,tieuChuanApplication,tieuChiApplication,tieuChuanUpSalary,tieuChiUpSalary,tieuChuanPhongCachNhaGiao,tieuChiPhongCachNhaGiao);
         // hard code TieuChuan
         YeuCau tieuChuanPhamChatNhaGiao = new TieuChuan("Phẩm chất nhà giáo:","Mức đạt Thực hiện nghiêm túc các quy định về đạo đức nhà giáo");
-        YeuCau tieuChuanChuyenMon = new TieuChuan("Phát triển chuyên môn, nghiệp vụ"," Xây dựng kế hoạch dạy học và giáo dục theo hướng phát triển phẩm chất, năng lực học sinh");
+        YeuCau tieuChuanChuyenMon = new TieuChuan("Phát triển chuyên môn nghiệp vụ"," Xây dựng kế hoạch dạy học và giáo dục theo hướng phát triển phẩm chất");
         YeuCau tieuChuanXayDungMoiTruong = new TieuChuan("Xây dựng môi trường giáo dục","Xây dựng văn hóa nhà trường");
-        YeuCau tieuChuanSuDungNgoaiNgu = new TieuChuan("Sử dụng ngoại ngữ hoặc tiếng dân tộc","ứng dụng công nghệ thông tin, khai thác và sử dụng thiết bị công nghệ trong dạy học, giáo dục");
+        YeuCau tieuChuanSuDungNgoaiNgu = new TieuChuan("Sử dụng ngoại ngữ hoặc tiếng dân tộc","ứng dụng công nghệ thông tin, khai thác và sử dụng thiết bị công nghệ trong dạy học");
         YeuCau tieuChuanHoTro = new TieuChuan("Hỗ trợ học sinh viên","Xét học bổng");
         dsYeuCau.addYeuCau(tieuChuanPhamChatNhaGiao,tieuChuanChuyenMon,tieuChuanXayDungMoiTruong,tieuChuanSuDungNgoaiNgu,tieuChuanHoTro);
         //=====================================================================================================//
@@ -67,8 +67,9 @@ public class Menu {
         MinhChung minhChungSuDungCongTheThongTin = new MinhChung("Chứng chỉ Ngoại ngữ","Đại Học Mở","29/01/2016");
         MinhChung minhChungVanHoaNhaTruong = new MinhChung("Giấy chứng giáo viên dạy giỏi","THPT Nguyễn Công Trứ","12/07/2000");
         MinhChung minhChungPhatTrienChuyenMon = new MinhChung("Kế hoạch BDTX","Bộ Giáo dục và Đào tạo","20/4/2019");
+        MinhChung minhChungKieuTra = new MinhChung("Hoàn thành 2 tiết loại tốt","Nhà Trường","20/12/2020");
         QuanLiMinhChung dsMinhChung = new QuanLiMinhChung();
-        dsMinhChung.addMinhChung(minhChunDiemSo,minhChungĐanhGiaGiangVien,minhChungUuTien,minhChungHoTro,minhChungSuDungCongTheThongTin,minhChungVanHoaNhaTruong,minhChungPhatTrienChuyenMon);
+        dsMinhChung.addMinhChung(minhChunDiemSo,minhChungĐanhGiaGiangVien,minhChungUuTien,minhChungHoTro,minhChungSuDungCongTheThongTin,minhChungVanHoaNhaTruong,minhChungPhatTrienChuyenMon,minhChungKieuTra);
 
         // hard code TieuChi
         TieuChi tieuChiSuDungNgoaiNgu = new TieuChi("Sử dụng Song Ngữ","Ngôn Ngữ", (TieuChuan) tieuChuanSuDungNgoaiNgu);
@@ -100,10 +101,12 @@ public class Menu {
         QuanLyPhongBan dspb = new QuanLyPhongBan();
         dspb.addPhongBan(phongBanDiemSo,phongBanUuTien,phongBanDieuHanhChuyenMon,phongBanCapQuyenGiayTo,phongBanHoTroSinhVien,phongBanDanhGia,phongBanThamQuyen);
         // hard code CungCap
-        CungCap cungCapDiemSo = new CungCap();
-        cungCapDiemSo.ghiNhanCungCap(phongBanDiemSo,minhChunDiemSo,"20/8/2018","19/02/2018");
-        cungCapDiemSo.ghiNhanCungCap(phongBanDiemSo,minhChungPhatTrienChuyenMon,"21/8/2018","19/03/2018");
-        cungCapDiemSo.ghiNhanCungCap(phongBanUuTien,minhChungHoTro,"20/8/2020","20/05/2023");
+        CungCap cungCap = new CungCap();
+        cungCap.ghiNhanCungCap(phongBanDiemSo,minhChunDiemSo,"20/8/2018","19/02/2018");
+        cungCap.ghiNhanCungCap(phongBanDiemSo,minhChungPhatTrienChuyenMon,"21/8/2018","19/03/2018");
+        cungCap.ghiNhanCungCap(phongBanUuTien,minhChungHoTro,"20/8/2020","20/05/2023");
+        cungCap.ghiNhanCungCap(phongBanUuTien,minhChungPhatTrienChuyenMon,"10/4/2000","20/4/1999");
+
 
         //Tạo đối tượng
         Admin admin = new Admin();
@@ -250,9 +253,24 @@ public class Menu {
 
                         }
                         case 7 -> {
-                            String namePB = CauHinh.sc.nextLine();
-                            PhongBan pb = dspb.findPhongBanByName(namePB);
+                            boolean isInvalidInput = true;
+                            PhongBan pb = null;
+                            do {
+                                try {
+                                    dspb.hienThiDanhSachPhongBan();
+                                    System.out.print("Mời bạn nhập tên phòng ban: ");
+                                    String namePB = CauHinh.sc.nextLine();
+                                    pb = dspb.findPhongBanByName(namePB);
+                                    if (pb == null) {
+                                        throw new Exception("Phòng ban không tồn tại. Vui lòng nhập lại!");
+                                    }
+                                    isInvalidInput = false;
+                                } catch (Exception e) {
+                                    System.out.println(e.getMessage());
+                                }
+                            } while (isInvalidInput);
                             pb.getCungCapMinhChung().forEach(CungCap::xuatThongTin);
+
                         }
                         case 8 -> System.out.println("Đã đăng suất thành công");
                         default -> System.out.println("Lỗi truy cập");

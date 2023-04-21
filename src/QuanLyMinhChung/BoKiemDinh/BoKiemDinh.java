@@ -34,18 +34,21 @@ public class BoKiemDinh {
     }
     public void display() {
         System.out.println("Tên bộ kiểm định: " + this.tenBoKiemDinh);
-        System.out.print("Danh sách tiêu chuẩn: ");
+        System.out.print("\nDanh sách tiêu chuẩn: ");
         if (this.dsTieuChuan.size() == 0) {
             System.out.println("Không có");
         } else {
-            String format = "| %-10s | %-30s | %-50s |%n";
-            System.out.format("+------------+--------------------------------+----------------------------------------------------+%n");
-            System.out.format(format, "Mã Tiêu Chuẩn", "Tên Tiêu Chuẩn", "Nội dung Tiêu Chuẩn");
-            System.out.format("+------------+--------------------------------+----------------------------------------------------+%n");
+            String format = "| %-12s  | %-45s  | %-100s |%n";
+            System.out.format("+--------------+---------------------------------------------+"
+                    + "----------------------------------------------------------------------------------------------------+%n");
+            System.out.format("| Mã Tiêu Chuẩn | Tên Tiêu Chuẩn | Nội dung Tiêu Chuẩn |%n");
+            System.out.format("+--------------+---------------------------------------------+"
+                    + "----------------------------------------------------------------------------------------------------+%n");
             for(TieuChuan tc : this.dsTieuChuan){
                 System.out.format(format, tc.getMaYeuCau(), tc.getTenYeuCau(), tc.getNoiDung());
             }
-            System.out.format("+------------+--------------------------------+----------------------------------------------------+%n");
+            System.out.format("+--------------+---------------------------------------------+"
+                    + "----------------------------------------------------------------------------------------------------+%n");
         }
     }
 

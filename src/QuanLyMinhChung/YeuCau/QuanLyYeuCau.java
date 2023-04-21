@@ -25,17 +25,20 @@ public class QuanLyYeuCau {
         System.out.format("+------------+--------------------------------+----------------------------------------------------+%n");
     }
 
-    public void displayTieuChuan(){
-        String format = "| %-10s | %-30s | %-50s |%n";
-        System.out.format("+------------+--------------------------------+----------------------------------------------------+%n");
-        System.out.format(format, "Mã Tiêu Chuẩn", "Tên Tiêu Chuẩn", "Nội dung Tiêu Chuẩn");
-        System.out.format("+------------+--------------------------------+----------------------------------------------------+%n");
-        for(YeuCau yc : ds){
-            if(yc.getClass().getSimpleName().equals("TieuChuan")){
+    public void displayTieuChuan() {
+        String format = "| %-12s | %-45s | %-100s |%n";
+        System.out.format("+--------------+---------------------------------------------+"
+                + "----------------------------------------------------------------------------------------------------+%n");
+        System.out.format("| Mã Tiêu Chuẩn | Tên Tiêu Chuẩn | Nội dung Tiêu Chuẩn |%n");
+        System.out.format("+--------------+---------------------------------------------+"
+                + "----------------------------------------------------------------------------------------------------+%n");
+        for (YeuCau yc : ds) {
+            if (yc instanceof TieuChuan) {
                 System.out.format(format, yc.maYeuCau, yc.tenYeuCau, yc.noiDung);
             }
         }
-        System.out.format("+------------+--------------------------------+----------------------------------------------------+%n");
+        System.out.format("+--------------+---------------------------------------------+"
+                + "----------------------------------------------------------------------------------------------------+%n");
     }
     public TieuChuan findTieuChuanByName(String name){
         for(YeuCau yc : ds){
