@@ -1,6 +1,7 @@
 package QuanLyMinhChung.BoKiemDinh;
 
 import QuanLyMinhChung.YeuCau.TieuChuan;
+import QuanLyMinhChung.YeuCau.YeuCau;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -10,12 +11,19 @@ public class BoKiemDinh {
     private String tenBoKiemDinh;
     private List<TieuChuan> dsTieuChuan = new ArrayList<>();
 
-    public BoKiemDinh(String tenBoKiemDinh) {
+    public BoKiemDinh(String tenBoKiemDinh,List<TieuChuan> tmp) {
+        if(tmp.size()<5){
+            throw new IllegalArgumentException("1 Bộ kiểm định ít nhất 5 tiêu chuẩn.");
+        }
         this.tenBoKiemDinh = tenBoKiemDinh;
+        this.dsTieuChuan.addAll(tmp);
     }
 
-    //Them Tieu Chuan
+
     public void addTieuChuan(TieuChuan ... tieuChuans){
+        if(this.dsTieuChuan.size() + tieuChuans.length > 20){
+            throw new IllegalArgumentException("1 Bộ kiểm định nhiều nhất 20 tiêu chuẩn.");
+        }
         this.dsTieuChuan.addAll(Arrays.asList(tieuChuans));
     }
     //Xoa Tieu Chuan
@@ -30,9 +38,14 @@ public class BoKiemDinh {
         if (this.dsTieuChuan.size() == 0) {
             System.out.println("Không có");
         } else {
-            for (TieuChuan tc : this.dsTieuChuan) {
-                tc.display();
+            String format = "| %-10s | %-30s | %-50s |%n";
+            System.out.format("+------------+--------------------------------+----------------------------------------------------+%n");
+            System.out.format(format, "Mã Tiêu Chuẩn", "Tên Tiêu Chuẩn", "Nội dung Tiêu Chuẩn");
+            System.out.format("+------------+--------------------------------+----------------------------------------------------+%n");
+            for(TieuChuan tc : this.dsTieuChuan){
+                System.out.format(format, tc.getMaYeuCau(), tc.getTenYeuCau(), tc.getNoiDung());
             }
+            System.out.format("+------------+--------------------------------+----------------------------------------------------+%n");
         }
     }
 

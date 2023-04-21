@@ -7,6 +7,7 @@ import QuanLyMinhChung.CungCap.CungCap;
 import QuanLyMinhChung.MinhChung.MinhChung;
 import QuanLyMinhChung.MinhChung.QuanLiMinhChung;
 import QuanLyMinhChung.PhongBan.PhongBan;
+import QuanLyMinhChung.PhongBan.QuanLyPhongBan;
 import QuanLyMinhChung.User.GiangVien;
 import QuanLyMinhChung.User.QuanLyUser;
 import QuanLyMinhChung.User.TruongPhong;
@@ -18,8 +19,9 @@ import QuanLyMinhChung.YeuCau.YeuCau;
 import QuanLyMinhChung.admin.Admin;
 
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.NoSuchElementException;
+import java.util.List;
 
 
 public class Menu {
@@ -30,12 +32,7 @@ public class Menu {
         GiangVien gv;
         int choose;
 
-        //Tạo nghiệp vụ
-        BoKiemDinh a = new BoKiemDinh("Ielts");
-        QuanLyBoKiemDinh dsBoKiemDinh = new QuanLyBoKiemDinh();
-        dsBoKiemDinh.addBoKiemDinh(a);
-
-
+        //Tạo nghiệp vu
         //hard code Tieu Chi Yeu Cau Tieu Chuan
         //=====================================================================================================//
         YeuCau tieuChuanIelts = new TieuChuan("4 kỹ năng","speaking,writing,reading,listening");
@@ -55,11 +52,12 @@ public class Menu {
         QuanLyYeuCau dsYeuCau = new QuanLyYeuCau();
         dsYeuCau.addYeuCau(tieuChuanIelts,tieuChiItels,tieuChuanToiec,tieuChiToiec,tieuChuanApplication,tieuChiApplication,tieuChuanUpSalary,tieuChiUpSalary,tieuChuanPhongCachNhaGiao,tieuChiPhongCachNhaGiao);
         // hard code TieuChuan
-        TieuChuan tieuChuanPhamChatNhaGiao = new TieuChuan("Phẩm chất nhà giáo:","Mức đạt Thực hiện nghiêm túc các quy định về đạo đức nhà giáo");
-        TieuChuan tieuChuanChuyenMon = new TieuChuan("Phát triển chuyên môn, nghiệp vụ"," Xây dựng kế hoạch dạy học và giáo dục theo hướng phát triển phẩm chất, năng lực học sinh");
-        TieuChuan tieuChuanXayDungMoiTruong = new TieuChuan("Xây dựng môi trường giáo dục","Xây dựng văn hóa nhà trường");
-        TieuChuan tieuChuanSuDungNgoaiNgu = new TieuChuan("Sử dụng ngoại ngữ hoặc tiếng dân tộc","ứng dụng công nghệ thông tin, khai thác và sử dụng thiết bị công nghệ trong dạy học, giáo dục");
-        TieuChuan tieuChuanHoTro = new TieuChuan("Hỗ trợ học sinh viên","Xét học bổng");
+        YeuCau tieuChuanPhamChatNhaGiao = new TieuChuan("Phẩm chất nhà giáo:","Mức đạt Thực hiện nghiêm túc các quy định về đạo đức nhà giáo");
+        YeuCau tieuChuanChuyenMon = new TieuChuan("Phát triển chuyên môn, nghiệp vụ"," Xây dựng kế hoạch dạy học và giáo dục theo hướng phát triển phẩm chất, năng lực học sinh");
+        YeuCau tieuChuanXayDungMoiTruong = new TieuChuan("Xây dựng môi trường giáo dục","Xây dựng văn hóa nhà trường");
+        YeuCau tieuChuanSuDungNgoaiNgu = new TieuChuan("Sử dụng ngoại ngữ hoặc tiếng dân tộc","ứng dụng công nghệ thông tin, khai thác và sử dụng thiết bị công nghệ trong dạy học, giáo dục");
+        YeuCau tieuChuanHoTro = new TieuChuan("Hỗ trợ học sinh viên","Xét học bổng");
+        dsYeuCau.addYeuCau(tieuChuanPhamChatNhaGiao,tieuChuanChuyenMon,tieuChuanXayDungMoiTruong,tieuChuanSuDungNgoaiNgu,tieuChuanHoTro);
         //=====================================================================================================//
         // hard code MinhChung
         MinhChung minhChunDiemSo = new MinhChung("Điểm số","TPHCM","19/4/2023");
@@ -73,13 +71,22 @@ public class Menu {
         dsMinhChung.addMinhChung(minhChunDiemSo,minhChungĐanhGiaGiangVien,minhChungUuTien,minhChungHoTro,minhChungSuDungCongTheThongTin,minhChungVanHoaNhaTruong,minhChungPhatTrienChuyenMon);
 
         // hard code TieuChi
-        TieuChi tieuChiSuDungNgoaiNgu = new TieuChi("Sử dụng Song Ngữ","Ngôn Ngữ",tieuChuanSuDungNgoaiNgu);
-        TieuChi tieuChiChuyenMon = new TieuChi("Phát triển chuyên môn bản thân","Tư vấn và hỗ trợ học sinh",tieuChuanChuyenMon);
-        TieuChi tieuChiDiemSo = new TieuChi("Phát triển điểm số học sinh","Cải cách quá trình dạy",tieuChuanXayDungMoiTruong);
-        TieuChi tieuChiXoaBong = new TieuChi("Phát bổng ","Loại Giỏi",tieuChuanHoTro);
-        TieuChi tieuChiBongSinhVienNgheo = new TieuChi("Phát bổng sinh viên","Khó khăn",tieuChuanHoTro);
+        TieuChi tieuChiSuDungNgoaiNgu = new TieuChi("Sử dụng Song Ngữ","Ngôn Ngữ", (TieuChuan) tieuChuanSuDungNgoaiNgu);
+        TieuChi tieuChiChuyenMon = new TieuChi("Phát triển chuyên môn bản thân","Tư vấn và hỗ trợ học sinh", (TieuChuan) tieuChuanChuyenMon);
+        TieuChi tieuChiDiemSo = new TieuChi("Phát triển điểm số học sinh","Cải cách quá trình dạy", (TieuChuan) tieuChuanXayDungMoiTruong);
+        TieuChi tieuChiXoaBong = new TieuChi("Phát bổng ","Loại Giỏi", (TieuChuan) tieuChuanHoTro);
+        TieuChi tieuChiBongSinhVienNgheo = new TieuChi("Phát bổng sinh viên","Khó khăn", (TieuChuan) tieuChuanHoTro);
 
         //hard code
+        List<TieuChuan> arrTieuChuan = new ArrayList<>();
+        arrTieuChuan.add((TieuChuan) tieuChuanPhamChatNhaGiao);
+        arrTieuChuan.add((TieuChuan) tieuChuanChuyenMon);
+        arrTieuChuan.add((TieuChuan) tieuChuanXayDungMoiTruong);
+        arrTieuChuan.add((TieuChuan) tieuChuanSuDungNgoaiNgu);
+        arrTieuChuan.add((TieuChuan) tieuChuanHoTro);
+        BoKiemDinh a = new BoKiemDinh("Ielts",arrTieuChuan);
+        QuanLyBoKiemDinh dsBoKiemDinh = new QuanLyBoKiemDinh();
+        dsBoKiemDinh.addBoKiemDinh(a);
         //
         //=====================================================================================================//
         // Hard Code Phong Ban
@@ -90,10 +97,14 @@ public class Menu {
         PhongBan phongBanHoTroSinhVien = new PhongBan("Hỗ trợ sinh viên","Bộ giáo dục");
         PhongBan phongBanDanhGia = new PhongBan("Đánh giá chất lượng nhân viên","Nhà Nước");
         PhongBan phongBanThamQuyen = new PhongBan("Thẩm quyển các chức năng","Bộ Công An");
+        QuanLyPhongBan dspb = new QuanLyPhongBan();
+        dspb.addPhongBan(phongBanDiemSo,phongBanUuTien,phongBanDieuHanhChuyenMon,phongBanCapQuyenGiayTo,phongBanHoTroSinhVien,phongBanDanhGia,phongBanThamQuyen);
         // hard code CungCap
         CungCap cungCapDiemSo = new CungCap();
         cungCapDiemSo.ghiNhanCungCap(phongBanDiemSo,minhChunDiemSo,"20/8/2018","19/02/2018");
+        cungCapDiemSo.ghiNhanCungCap(phongBanDiemSo,minhChungPhatTrienChuyenMon,"21/8/2018","19/03/2018");
         cungCapDiemSo.ghiNhanCungCap(phongBanUuTien,minhChungHoTro,"20/8/2020","20/05/2023");
+
         //Tạo đối tượng
         Admin admin = new Admin();
         User u1 = new GiangVien("AnTien","123");
@@ -239,6 +250,9 @@ public class Menu {
 
                         }
                         case 7 -> {
+                            String namePB = CauHinh.sc.nextLine();
+                            PhongBan pb = dspb.findPhongBanByName(namePB);
+                            pb.getCungCapMinhChung().forEach(CungCap::xuatThongTin);
                         }
                         case 8 -> System.out.println("Đã đăng suất thành công");
                         default -> System.out.println("Lỗi truy cập");
@@ -266,8 +280,27 @@ public class Menu {
                                     choose = Integer.parseInt(CauHinh.sc.nextLine());
                                     if(choose == 1 || choose ==2){
                                         if(choose == 1 ){
+                                            dsBoKiemDinh.diplayBoKiemDinh();
+                                            List<TieuChuan> tmplist = new ArrayList<>();
                                             System.out.println("Nhập tên bộ kiểm định bạn muốn tạo : ");
-                                            BoKiemDinh tmpBKD = new BoKiemDinh(CauHinh.sc.nextLine());
+                                            String nameBKD = CauHinh.sc.nextLine();
+                                            System.out.println("Mời bạn nhập tối thiểu 5 tiêu chuẩn");
+                                            do{
+                                                dsYeuCau.displayTieuChuan();
+                                                System.out.printf("Bạn đã nhập %d tiêu chuẩn\n",tmplist.size());
+                                                TieuChuan tmpTC= dsYeuCau.findTieuChuanByName(CauHinh.sc.nextLine());
+                                                if(tmpTC==null){
+                                                    break;
+                                                }
+                                                for(TieuChuan tc : tmplist){
+                                                    if(tc.getTenYeuCau().equals(tmpTC.getTenYeuCau())){
+                                                        System.out.printf("Bạn đã nhập %s vào mảng rồi vui lòng nhập tên khác",tmpTC.getTenYeuCau());
+                                                        continue;
+                                                    }
+                                                }
+                                                tmplist.add(tmpTC);
+                                            }while (true);
+                                            BoKiemDinh tmpBKD = new BoKiemDinh(nameBKD,tmplist);
                                             dsBoKiemDinh.addBoKiemDinh(tmpBKD);
                                         }else{
                                             dsYeuCau.displayTieuChuan();

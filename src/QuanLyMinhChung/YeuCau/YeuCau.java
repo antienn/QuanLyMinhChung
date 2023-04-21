@@ -24,11 +24,7 @@ public abstract class YeuCau {
         return tenYeuCau;
     }
 
-    public void display() {
-        System.out.printf("\nMa yeu cau : %s\n", this.maYeuCau);
-        System.out.printf("Ten Yeu Cau : %s\n", this.tenYeuCau);
-        System.out.printf("Noi dung Yeu Cau : %s\n", this.noiDung);
-    }
+    public abstract void display();
 
     public void setTenYeuCau(String tenYeuCau) {
         this.tenYeuCau = tenYeuCau;
